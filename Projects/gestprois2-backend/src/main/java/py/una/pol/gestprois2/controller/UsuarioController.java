@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -32,7 +33,7 @@ import py.una.pol.gestprois2.facade.UsuarioFacade;
  */
 @Api
 @Path("/usuario")
-@Stateless
+@Named
 public class UsuarioController{
     @EJB
     private UsuarioFacade usuario;
