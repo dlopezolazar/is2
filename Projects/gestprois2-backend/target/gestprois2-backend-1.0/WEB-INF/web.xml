@@ -9,8 +9,10 @@
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <!-- Register resources and providers under com.vogella.jersey.first package. -->
         <init-param>
-            <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>com.vogella.jersey.first</param-value>
+<!--            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>com.vogella.jersey.first</param-value>-->
+            <param-name>javax.ws.rs.core.Application</param-name>
+            <param-value>py.una.pol.gestprois2.application.GestProIS2Application</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
