@@ -5,14 +5,10 @@
  */
 package py.una.pol.gestprois2.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -31,9 +27,8 @@ import py.una.pol.gestprois2.facade.UsuarioFacade;
  *
  * @author Diego
  */
-@Api
 @Path("/usuario")
-@Named
+@Stateless
 public class UsuarioController{
     @EJB
     private UsuarioFacade usuario;
@@ -65,7 +60,6 @@ public class UsuarioController{
     @GET
     @Path(USUARIO)
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Returns a User")
     public Response getUser(@PathParam("userId") Integer userId){
         
         Usuario usu = usuario.find(userId);
@@ -80,7 +74,6 @@ public class UsuarioController{
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Save a User")
     public Response saveUser(Usuario usu){
         try {
             usuario.create(usu);
@@ -94,10 +87,14 @@ public class UsuarioController{
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Update a user")
-    public Response updateUser(){
-        
-        return null;
+    public Response updateUser(Usuario usu){
+        try {
+            usuario.edit(usu);
+            return Response.ok().build();
+        } catch (Exception e) {
+            LOGGER.error(e);
+            return Response.serverError().build();
+        }
     }
     
     /**
@@ -107,9 +104,9 @@ public class UsuarioController{
      */
     @DELETE
     @Path(USUARIO)
-    @ApiOperation(value = "Delete a subresource")
     public Response deleteUser(@PathParam("userId") Integer userId){
-        
+        Usuario u = usuario.find(userId);
+        usuario.remove(u);
         return Response.ok().build();
     }
     
