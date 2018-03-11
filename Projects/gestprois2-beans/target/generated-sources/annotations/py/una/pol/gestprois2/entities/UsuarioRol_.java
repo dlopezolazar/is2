@@ -7,7 +7,7 @@ import py.una.pol.gestprois2.entities.Proyecto;
 import py.una.pol.gestprois2.entities.Rol;
 import py.una.pol.gestprois2.entities.Usuario;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-03-10T12:12:06")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-03-11T11:02:19")
 @StaticMetamodel(UsuarioRol.class)
 public class UsuarioRol_ { 
 

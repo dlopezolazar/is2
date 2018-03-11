@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import py.una.pol.gestprois2.entities.UsuarioRol;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-03-10T12:12:06")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-03-11T11:02:19")
 @StaticMetamodel(Rol.class)
 public class Rol_ { 
 
