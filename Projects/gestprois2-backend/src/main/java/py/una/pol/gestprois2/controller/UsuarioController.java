@@ -44,7 +44,7 @@ public class UsuarioController{
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers(){
-        System.out.println("Pase por aca");
+        System.out.println("UsuarioController.getAllUsers");
         List<Usuario> listAllUsers =  usuario.findAll();
         if(listAllUsers.isEmpty()){
             return Response.noContent().build();
