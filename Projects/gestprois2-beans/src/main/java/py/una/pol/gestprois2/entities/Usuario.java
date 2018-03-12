@@ -7,6 +7,7 @@ package py.una.pol.gestprois2.entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuario")
+@Cacheable(false)
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
