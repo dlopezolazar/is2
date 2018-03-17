@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -21,17 +22,24 @@ import javax.persistence.Table;
 @Table(name = "usuario")
 @Cacheable(false)
 public class Usuario implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+   
     @Id
     @Basic(optional = false)
     @Column(name = "id_usuario")
     private Integer idUsuario;
     @Basic(optional = false)
-    @Column(name = "nombre")
-    private String nombre;
-    @Basic(optional = false)
     @Column(name = "correo")
     private String correo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "nombre_completo")
+    private String nombreCompleto;
+    @Column(name = "uid")
+    private String uid;
+    @Column(name = "password")
+    private String password;
 
     public Usuario() {
     }
@@ -40,10 +48,12 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String nombre, String correo) {
+    public Usuario(Integer idUsuario, String correo, String nombreCompleto, String uid, String password) {
         this.idUsuario = idUsuario;
-        this.nombre = nombre;
         this.correo = correo;
+        this.nombreCompleto = nombreCompleto;
+        this.uid = uid;
+        this.password = password;
     }
 
     public Integer getIdUsuario() {
@@ -52,14 +62,6 @@ public class Usuario implements Serializable {
 
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getCorreo() {
@@ -93,6 +95,30 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "py.una.pol.gestprois2.entities.Usuario[ idUsuario=" + idUsuario + " ]";
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
 }

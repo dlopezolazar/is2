@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import javax.persistence.Query;
 import py.una.pol.gestprois2.entities.Usuario;
 
 /**
@@ -29,5 +30,23 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    public Usuario validateUser(String user, String password){
+        
+        try {
+            Query query = em
+                    .createQuery("SELECT U FROM Usuario U WHERE U.uid = :uid "
+                                     + "AND U.password = :pass");
+            query.setParameter("uid", user);
+            query.setParameter("pass", password);
+            Usuario u = (Usuario) query.getSingleResult();
+            
+            return u;
+        } catch (Exception e) {
+            System.err.println(e);
+            return null;
+        }
+        
     }
 }

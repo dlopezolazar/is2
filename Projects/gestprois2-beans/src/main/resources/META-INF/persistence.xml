@@ -13,6 +13,9 @@
     <class>py.una.pol.gestprois2.entities.UsuarioRol</class>
     <properties>    
       <property name="eclipselink.cache.shared.default" value="false"/>
+      <property name="eclipselink.logging.logger" value="JavaLogger"/>
+      <property name="eclipselink.logging.level.sql" value="FINE"/>
+    <property name="eclipselink.logging.parameters" value="true"/>
     </properties>
   </persistence-unit>
 </persistence>

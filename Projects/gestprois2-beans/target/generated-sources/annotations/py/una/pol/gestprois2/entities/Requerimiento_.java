@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import py.una.pol.gestprois2.entities.Backlog;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-03-12T13:39:36")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-03-17T16:44:45")
 @StaticMetamodel(Requerimiento.class)
 public class Requerimiento_ { 
 
