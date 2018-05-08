@@ -48,6 +48,11 @@ public class StoryController {
     public Response getAllSttory(@PathParam("sprintId") Integer sprintId){
         System.out.println("UsuarioController.getAllStoryPerSprint");
         Sprint sp = sprint.find(sprintId);
+        
+        if(sp == null){
+             return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        
         List<Story> listAllStory =  story.findAllStoryBySprint(sp);
         if(listAllStory.isEmpty()){
             return Response.noContent().build();
