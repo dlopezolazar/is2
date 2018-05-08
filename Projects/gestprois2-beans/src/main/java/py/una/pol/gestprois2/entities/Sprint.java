@@ -30,13 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "sprint")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Sprint.findAll", query = "SELECT s FROM Sprint s"),
-    @NamedQuery(name = "Sprint.findBySprintId", query = "SELECT s FROM Sprint s WHERE s.sprintId = :sprintId"),
-    @NamedQuery(name = "Sprint.findByFechaInicio", query = "SELECT s FROM Sprint s WHERE s.fechaInicio = :fechaInicio"),
-    @NamedQuery(name = "Sprint.findByFechaFin", query = "SELECT s FROM Sprint s WHERE s.fechaFin = :fechaFin"),
-    @NamedQuery(name = "Sprint.findBySprintDescription", query = "SELECT s FROM Sprint s WHERE s.sprintDescription = :sprintDescription")})
 public class Sprint implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
