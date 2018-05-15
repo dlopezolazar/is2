@@ -32,15 +32,18 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return em;
     }
     
-    public Usuario validateUser(String user, String password){
-        
+    public Usuario validateUser(String user, String password){  
         try {
             Query query = em
-                    .createQuery("SELECT U FROM Usuario U WHERE U.uid = :uid "
+                    .createQuery("SELECT U FROM Usuario U "
+                            + "WHERE (U.correo = :user OR U.uid = :user)"
                                      + "AND U.password = :pass");
-            query.setParameter("uid", user);
+            query.setParameter("user", user);
             query.setParameter("pass", password);
-            Usuario u = (Usuario) query.getSingleResult();
+            Usuario u = null;
+            if(query.getMaxResults() >= 1){
+               u = (Usuario) query.getSingleResult();
+            }
             
             return u;
         } catch (Exception e) {

@@ -6,13 +6,16 @@
 package py.una.pol.gestprois2.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,8 +42,10 @@ public class Usuario implements Serializable {
     @Column(name = "uid")
     private String uid;
     @Column(name = "password")
-    private String password;
-
+    private String password; 
+    @OneToMany(mappedBy = "usuario")
+    private List<Sesion> sesionList;
+    
     public Usuario() {
     }
 
@@ -119,6 +124,15 @@ public class Usuario implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @XmlTransient
+    public List<Sesion> getSesionList() {
+        return sesionList;
+    }
+
+    public void setSesionList(List<Sesion> sesionList) {
+        this.sesionList = sesionList;
     }
     
 }
