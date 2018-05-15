@@ -64,15 +64,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    private static final String LOGIN_URL = "http://192.168.0.112:8080/gestprois2-backend/api/authentication";
+    private static final String LOGIN_URL = "http://192.168.1.5:8080/gestprois2-backend/api/authentication";
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    /*private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };*/
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -331,7 +324,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 // Simulate network access.
-                Thread.sleep(2000);
+                Thread.sleep(20000);
             } catch (InterruptedException e) {
                 return false;
             }
