@@ -43,7 +43,7 @@ public class ProyectoController {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
         
-        return Response.ok().build();
+        return Response.ok(listPrjects).build();
     }
     @GET
     @Path(PROJECT)

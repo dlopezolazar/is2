@@ -7,20 +7,13 @@ package py.una.pol.gestprois2.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -49,12 +42,12 @@ public class Proyecto implements Serializable {
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
-    private List<Backlog> backlogList;
-    @OneToMany(mappedBy = "idProyecto")
-    private List<UsuarioRol> usuarioRolList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
-    private List<Sprint> sprintList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
+//    private List<Backlog> backlogList;
+//    @OneToMany(mappedBy = "idProyecto")
+//    private List<UsuarioRol> usuarioRolList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
+//    private List<Sprint> sprintList;
 
     public Proyecto() {
     }
@@ -100,33 +93,6 @@ public class Proyecto implements Serializable {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
-    }
-
-    @XmlTransient
-    public List<Backlog> getBacklogList() {
-        return backlogList;
-    }
-
-    public void setBacklogList(List<Backlog> backlogList) {
-        this.backlogList = backlogList;
-    }
-
-    @XmlTransient
-    public List<UsuarioRol> getUsuarioRolList() {
-        return usuarioRolList;
-    }
-
-    public void setUsuarioRolList(List<UsuarioRol> usuarioRolList) {
-        this.usuarioRolList = usuarioRolList;
-    }
-
-    @XmlTransient
-    public List<Sprint> getSprintList() {
-        return sprintList;
-    }
-
-    public void setSprintList(List<Sprint> sprintList) {
-        this.sprintList = sprintList;
     }
 
     @Override

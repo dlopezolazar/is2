@@ -11,11 +11,12 @@
     <class>py.una.pol.gestprois2.entities.Story</class>
     <class>py.una.pol.gestprois2.entities.Usuario</class>
     <class>py.una.pol.gestprois2.entities.UsuarioRol</class>
-    <properties>    
+    <class>py.una.pol.gestprois2.entities.Sesion</class>
+    <properties>
       <property name="eclipselink.cache.shared.default" value="false"/>
       <property name="eclipselink.logging.logger" value="JavaLogger"/>
       <property name="eclipselink.logging.level.sql" value="FINE"/>
-    <property name="eclipselink.logging.parameters" value="true"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
     </properties>
   </persistence-unit>
 </persistence>
