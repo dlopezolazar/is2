@@ -16,7 +16,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
+import py.una.pol.gestprois2.entities.Sesion;
 import py.una.pol.gestprois2.entities.Usuario;
+import py.una.pol.gestprois2.error.ErrorDetail;
 import py.una.pol.gestprois2.facade.UsuarioFacade;
 import py.una.pol.gestprois2.request.Credentials;
 import py.una.pol.gestprois2.response.CredentialsOut;
@@ -50,11 +52,20 @@ public class AuthenticationController {
             out.setAccesToken(token);
             out.setSession(new Date());
             
+            Sesion session = new Sesion();
+            session.setAccessToken(token);
+            session.setEstadoSession(1);
+            session.setSesionFechaHora(new Date());
+            session.setUsuario(u);
+            
+          //persistir session
+            
             return Response.ok(out).build();
             
         } catch (Exception e) {
             LOGGER.error(e);
-            return Response.status(Response.Status.FORBIDDEN).build();
+            return Response.status(Response.Status.FORBIDDEN)
+                    .entity(new ErrorDetail("Error en contraseña.")).build();
         }      
     }
 
