@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    private static final String LOGIN_URL = "http://192.168.1.5:8080/gestprois2-backend/api/authentication";
+    private static final String LOGIN_URL = "http://192.168.1.4:8080/gestprois2-backend/api/authentication";
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.

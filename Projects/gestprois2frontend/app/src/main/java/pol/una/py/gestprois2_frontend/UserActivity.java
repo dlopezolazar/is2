@@ -1,11 +1,17 @@
 package pol.una.py.gestprois2_frontend;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,7 +34,7 @@ import pol.una.py.gestprois2_frontend.model.UserModel;
 public class UserActivity extends AppCompatActivity {
 
 
-    private static final String USUARIO = "http://192.168.1.5:8080/gestprois2-backend/api/usuario";
+    private static final String USUARIO = "http://192.168.1.4:8080/gestprois2-backend/api/usuario";
 
     ListView listView;
     String jsonObjectResponse ;
@@ -57,6 +63,14 @@ public class UserActivity extends AppCompatActivity {
 
         RequestQueue rQueue = Volley.newRequestQueue(UserActivity.this);
         rQueue.add(request);
+
+        FloatingActionButton buttonNew = findViewById(R.id.butonNew);
+        buttonNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserActivity.this, UserDetailActivity.class));
+            }
+        });
 
     }
 
@@ -97,15 +111,12 @@ public class UserActivity extends AppCompatActivity {
                     try {
                         // Adding JSON response object into JSON array.
                         jsonArray = new JSONArray(jsonObjectResponse);
-
                         // Creating JSON Object.
                         JSONObject jsonObject;
-
                         // Creating Subject class object.
                         UserModel user;
                         // Defining CustomSubjectNamesList AS Array List.
                         customList = new ArrayList<>();
-
                         for (int i = 0; i < jsonArray.length(); i++) {
                             user = new UserModel();
                             jsonObject = jsonArray.getJSONObject(i);
@@ -113,7 +124,6 @@ public class UserActivity extends AppCompatActivity {
                             user.setEmail(jsonObject.getString("correo"));
                             //Storing Subject name in subject list.
                             user.setFullName(jsonObject.getString("nombreCompleto"));
-
                             // Adding subject list object into CustomSubjectNamesList.
                             customList.add(user);
                         }
@@ -133,6 +143,17 @@ public class UserActivity extends AppCompatActivity {
             UserListViewAdapter adapter = new UserListViewAdapter(customList, context);
             // Setting up all data into ListView.
             listView.setAdapter(adapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    UserModel u = (UserModel) adapterView.getItemAtPosition(i);
+                    Intent intent = new Intent(UserActivity.this, UserDetailActivity.class);
+                    intent.putExtra("email", u.getEmail());
+                    intent.putExtra("name", u.getFullName());
+                    startActivity(intent);
+                }
+            });
 
             // Hiding progress bar after all JSON loading done.
             // progressBar.setVisibility(View.GONE);

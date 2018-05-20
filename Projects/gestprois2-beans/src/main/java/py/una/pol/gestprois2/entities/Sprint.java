@@ -46,7 +46,8 @@ public class Sprint implements Serializable {
     @javax.validation.constraints.NotNull
     @javax.validation.constraints.Size(min = 1, max = 2147483647)
     @Column(name = "fecha_fin")
-    private String fechaFin;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaFin;
     @Basic(optional = false)
     @javax.validation.constraints.NotNull
     @javax.validation.constraints.Size(min = 1, max = 2147483647)
@@ -65,7 +66,7 @@ public class Sprint implements Serializable {
         this.sprintId = sprintId;
     }
 
-    public Sprint(Integer sprintId, Date fechaInicio, String fechaFin, String sprintDescription) {
+    public Sprint(Integer sprintId, Date fechaInicio, Date fechaFin, String sprintDescription) {
         this.sprintId = sprintId;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -88,11 +89,11 @@ public class Sprint implements Serializable {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 

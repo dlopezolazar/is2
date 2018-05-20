@@ -5,6 +5,9 @@
  */
 package py.una.pol.gestprois2.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -18,6 +21,7 @@ import py.una.pol.gestprois2.entities.Proyecto;
 import py.una.pol.gestprois2.entities.Sprint;
 import py.una.pol.gestprois2.facade.ProyectoFacade;
 import py.una.pol.gestprois2.facade.SprintFacade;
+import py.una.pol.gestprois2.model.SprintModel;
 
 /**
  *
@@ -50,6 +54,17 @@ public class SprintController {
         if(sprintList.isEmpty()){
             return Response.noContent().build();
         }
-        return Response.ok(sprintList).build();
+        SprintModel model = new SprintModel();
+        List<SprintModel> listModel = new ArrayList<>();
+        for (Sprint sprint : sprintList) {
+            model.setSprintId(sprint.getSprintId());
+            model.setSprintDescription(sprint.getSprintDescription());
+            model.setInitDate(sprint.getFechaInicio());
+            model.setEndDate(sprint.getFechaFin());
+            model.setProject(sprint.getIdProyecto());
+            
+            listModel.add(model);
+        }
+        return Response.ok(listModel).build();
     }
 }

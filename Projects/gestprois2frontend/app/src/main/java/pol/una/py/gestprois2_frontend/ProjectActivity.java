@@ -1,10 +1,13 @@
 package pol.una.py.gestprois2_frontend;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,7 +30,7 @@ import pol.una.py.gestprois2_frontend.model.ProjectModel;
 
 public class ProjectActivity extends AppCompatActivity {
 
-    private static final String PROJECT = "http://192.168.1.5:8080/gestprois2-backend/api/proyecto";
+    private static final String PROJECT = "http://192.168.1.4:8080/gestprois2-backend/api/proyecto";
 
     ListView listView;
     String jsonObjectResponse ;
@@ -105,6 +108,16 @@ public class ProjectActivity extends AppCompatActivity {
         protected void onPostExecute(Void result){
             ProjectListViewAdapter adapter = new ProjectListViewAdapter(listProjects, context);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    ProjectModel p = (ProjectModel) adapterView.getItemAtPosition(i);
+                    Intent intent = new Intent(ProjectActivity.this, SprintActivity.class);
+                    intent.putExtra("projectId", p.getProjectId());
+                    intent.putExtra("projectName", p.getProjectName());
+                    startActivity(intent);
+                }
+            });
             // progressBar.setVisibility(View.GONE);
         }
     }

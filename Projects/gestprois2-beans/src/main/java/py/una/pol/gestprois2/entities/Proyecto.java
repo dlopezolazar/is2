@@ -5,15 +5,22 @@
  */
 package py.una.pol.gestprois2.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -22,7 +29,9 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "proyecto")
 public class Proyecto implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @Column(name = "id_proyecto")
@@ -41,13 +50,20 @@ public class Proyecto implements Serializable {
     @javax.validation.constraints.NotNull
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date fechaFin;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
-//    private List<Backlog> backlogList;
-//    @OneToMany(mappedBy = "idProyecto")
-//    private List<UsuarioRol> usuarioRolList;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
-//    private List<Sprint> sprintList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
+    @JsonIgnore
+    private List<Backlog> backlogList;
+    @OneToMany(mappedBy = "idProyecto")
+    @JsonIgnore
+    private List<UsuarioRol> usuarioRolList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
+    @JsonIgnore
+    private List<Sprint> sprintList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
+    @JsonIgnore
+    private Collection<Sprint> sprintCollection;
 
     public Proyecto() {
     }
@@ -79,6 +95,7 @@ public class Proyecto implements Serializable {
         this.nombre = nombre;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     public Date getFechaInicio() {
         return fechaInicio;
     }
@@ -87,6 +104,7 @@ public class Proyecto implements Serializable {
         this.fechaInicio = fechaInicio;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     public Date getFechaFin() {
         return fechaFin;
     }
@@ -114,10 +132,44 @@ public class Proyecto implements Serializable {
         }
         return true;
     }
+    
+    @XmlTransient
+    public Collection<Sprint> getSprintCollection() {
+        return sprintCollection;
+    }
+
+    public void setSprintCollection(Collection<Sprint> sprintCollection) {
+        this.sprintCollection = sprintCollection;
+    }
+
+    public List<Backlog> getBacklogList() {
+        return backlogList;
+    }
+
+    public void setBacklogList(List<Backlog> backlogList) {
+        this.backlogList = backlogList;
+    }
+
+    public List<UsuarioRol> getUsuarioRolList() {
+        return usuarioRolList;
+    }
+
+    public void setUsuarioRolList(List<UsuarioRol> usuarioRolList) {
+        this.usuarioRolList = usuarioRolList;
+    }
+
+    public List<Sprint> getSprintList() {
+        return sprintList;
+    }
+
+    public void setSprintList(List<Sprint> sprintList) {
+        this.sprintList = sprintList;
+    }
+    
 
     @Override
     public String toString() {
         return "py.una.pol.gestprois2.entities.Proyecto[ idProyecto=" + idProyecto + " ]";
     }
-    
+
 }

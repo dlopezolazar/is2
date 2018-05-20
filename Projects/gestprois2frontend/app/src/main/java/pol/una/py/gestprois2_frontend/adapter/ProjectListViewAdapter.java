@@ -53,7 +53,7 @@ public class ProjectListViewAdapter  extends BaseAdapter{
             view = layoutInfiater.inflate(R.layout.project_items, null);
 
             viewItem.projectId = (TextView) view.findViewById(R.id.codProject);
-            viewItem.projectName = (TextView) view.findViewById(R.id.nameProject);
+            viewItem.projectName = (TextView) view.findViewById(R.id.nameSprint);
             viewItem.projectInitDate = (TextView) view.findViewById(R.id.initDate);
             viewItem.projectEndDate = (TextView) view.findViewById(R.id.endDate);
 
