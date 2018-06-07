@@ -21,7 +21,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
@@ -55,15 +54,12 @@ public class Proyecto implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
     @JsonIgnore
     private List<Backlog> backlogList;
-    @OneToMany(mappedBy = "idProyecto")
+    @OneToMany(mappedBy = "proyecto")
     @JsonIgnore
     private List<UsuarioRol> usuarioRolList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
     @JsonIgnore
     private List<Sprint> sprintList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
-    @JsonIgnore
-    private List<Sprint> sprintCollection;
 
     public Proyecto() {
     }
@@ -133,14 +129,6 @@ public class Proyecto implements Serializable {
         return true;
     }
     
-    @XmlTransient
-    public List<Sprint> getSprintCollection() {
-        return sprintCollection;
-    }
-
-    public void setSprintCollection(List<Sprint> sprintCollection) {
-        this.sprintCollection = sprintCollection;
-    }
 
     public List<Backlog> getBacklogList() {
         return backlogList;
