@@ -12,6 +12,6 @@ public class UserDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_detail);
 
         ((TextView)findViewById(R.id.edEmail)).setText(getIntent().getStringExtra("email"));
-        ((TextView)findViewById(R.id.edNombre)).setText(getIntent().getStringExtra("name"));
+        ((TextView)findViewById(R.id.edTaskDescription)).setText(getIntent().getStringExtra("name"));
     }
 }

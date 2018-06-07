@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.032" />
 
     <EditText
-        android:id="@+id/edNombre"
+        android:id="@+id/edTaskDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="347dp"
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edNombre"
+        app:layout_constraintTop_toBottomOf="@+id/edTaskDescription"
         app:layout_constraintVertical_bias="0.021" />
 
     <EditText

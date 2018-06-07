@@ -7,47 +7,37 @@
     tools:context="pol.una.py.gestprois2_frontend.SprintActivity">
 
     <TextView
-        android:id="@+id/nameSprint"
-        android:layout_width="135dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="NameProject"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descProject"
-        android:layout_marginLeft="8dp" />
-
-    <TextView
-        android:id="@+id/descProject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="ProjectDesc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="8dp" />
-
-    <TextView
-        android:id="@+id/initDate"
-        android:layout_width="117dp"
-        android:layout_height="22dp"
+        android:id="@+id/sprintText"
+        android:layout_width="110dp"
+        android:layout_height="29dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="InitDate"
-        app:layout_constraintEnd_toStartOf="@+id/endDate"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/nameSprint"
-        app:layout_constraintTop_toTopOf="@+id/nameSprint" />
-
-    <TextView
-        android:id="@+id/endDate"
-        android:layout_width="104dp"
-        android:layout_height="22dp"
-        android:layout_marginEnd="6dp"
-        android:text="EndDate"
+        android:layout_marginTop="8dp"
+        android:text="Sprints"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/initDate"
-        android:layout_marginRight="4dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="8dp" />
+
+    <ListView
+        android:id="@+id/sprintListView"
+        android:layout_width="368dp"
+        android:layout_height="388dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sprintText" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/butonNew"
+        android:layout_width="49dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/projectListView"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </android.support.constraint.ConstraintLayout>

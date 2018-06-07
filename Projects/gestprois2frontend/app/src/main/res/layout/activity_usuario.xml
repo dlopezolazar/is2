@@ -7,7 +7,7 @@
     tools:context="pol.una.py.gestprois2_frontend.UserActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/sprintText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="26dp"
@@ -24,10 +24,9 @@
         android:layout_marginBottom="29dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/butonDelete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/sprintText" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/butonNew"

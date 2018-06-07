@@ -41,7 +41,8 @@
         <activity android:name=".ProjectActivity" />
         <activity android:name=".UserDetailActivity" />
         <activity android:name=".SprintActivity" />
-        <activity android:name=".StoryActivity"></activity>
+        <activity android:name=".StoryActivity" />
+        <activity android:name=".StoryDetailActivity"></activity>
     </application>
 
 </manifest>

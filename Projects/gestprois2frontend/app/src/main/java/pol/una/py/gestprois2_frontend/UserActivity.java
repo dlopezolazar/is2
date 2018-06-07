@@ -34,7 +34,8 @@ import pol.una.py.gestprois2_frontend.model.UserModel;
 public class UserActivity extends AppCompatActivity {
 
 
-    private static final String USUARIO = "http://192.168.1.4:8080/gestprois2-backend/api/usuario";
+    //private static final String USUARIO = "http://192.168.1.61:8080/gestprois2-backend/api/usuario";
+    private static final String USUARIO = "http://192.168.0.112:8080/gestprois2-backend/api/usuario";
 
     ListView listView;
     String jsonObjectResponse ;
@@ -45,7 +46,6 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_usuario);
 
         listView = findViewById(R.id.userListView);
-
         StringRequest request = new StringRequest(Request.Method.GET, USUARIO, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -64,6 +64,7 @@ public class UserActivity extends AppCompatActivity {
         RequestQueue rQueue = Volley.newRequestQueue(UserActivity.this);
         rQueue.add(request);
 
+        //Al dar click sobre el button + se desplega la vista para crear nuevo usuario
         FloatingActionButton buttonNew = findViewById(R.id.butonNew);
         buttonNew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +145,8 @@ public class UserActivity extends AppCompatActivity {
             // Setting up all data into ListView.
             listView.setAdapter(adapter);
 
+            //Esto sirve para cuando das click sobre un elemento de la lista
+            //se guarda los atributos y se le pasa a la vista siguiente
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
