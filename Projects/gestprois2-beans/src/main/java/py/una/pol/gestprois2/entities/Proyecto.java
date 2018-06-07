@@ -7,15 +7,17 @@ package py.una.pol.gestprois2.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,20 +36,18 @@ public class Proyecto implements Serializable {
     
     @Id
     @Basic(optional = false)
+    @SequenceGenerator(name="ProySeq", sequenceName = "proyecto_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.AUTO, generator = "ProySeq")
     @Column(name = "id_proyecto")
     private Integer idProyecto;
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
-    @javax.validation.constraints.Size(min = 1, max = 2147483647)
     @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
@@ -63,7 +63,7 @@ public class Proyecto implements Serializable {
     private List<Sprint> sprintList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
     @JsonIgnore
-    private Collection<Sprint> sprintCollection;
+    private List<Sprint> sprintCollection;
 
     public Proyecto() {
     }
@@ -134,11 +134,11 @@ public class Proyecto implements Serializable {
     }
     
     @XmlTransient
-    public Collection<Sprint> getSprintCollection() {
+    public List<Sprint> getSprintCollection() {
         return sprintCollection;
     }
 
-    public void setSprintCollection(Collection<Sprint> sprintCollection) {
+    public void setSprintCollection(List<Sprint> sprintCollection) {
         this.sprintCollection = sprintCollection;
     }
 

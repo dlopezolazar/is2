@@ -12,16 +12,16 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -34,23 +34,19 @@ public class Sprint implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
+    @SequenceGenerator(name="SprintSeq", sequenceName = "sprint_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.AUTO, generator = "SprintSeq")
     @Column(name = "sprint_id")
     private Integer sprintId;
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
-    @javax.validation.constraints.Size(min = 1, max = 2147483647)
     @Column(name = "fecha_fin")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaFin;
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
-    @javax.validation.constraints.Size(min = 1, max = 2147483647)
     @Column(name = "sprint_description")
     private String sprintDescription;
     @JoinColumn(name = "id_proyecto", referencedColumnName = "id_proyecto")

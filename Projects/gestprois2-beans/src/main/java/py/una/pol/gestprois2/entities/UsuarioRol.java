@@ -12,10 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -23,26 +20,23 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "usuario_rol")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "UsuarioRol.findAll", query = "SELECT u FROM UsuarioRol u"),
-    @NamedQuery(name = "UsuarioRol.findByIdUsuarioRol", query = "SELECT u FROM UsuarioRol u WHERE u.idUsuarioRol = :idUsuarioRol")})
 public class UsuarioRol implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
     @Column(name = "id_usuario_rol")
     private Integer idUsuarioRol;
     @JoinColumn(name = "id_proyecto", referencedColumnName = "id_proyecto")
     @ManyToOne
-    private Proyecto idProyecto;
+    private Proyecto proyecto;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     @ManyToOne(optional = false)
     private Rol idRol;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
-    private Usuario idUsuario;
+    private Usuario usuario;
 
     public UsuarioRol() {
     }
@@ -59,12 +53,12 @@ public class UsuarioRol implements Serializable {
         this.idUsuarioRol = idUsuarioRol;
     }
 
-    public Proyecto getIdProyecto() {
-        return idProyecto;
+    public Proyecto getProyecto() {
+        return proyecto;
     }
 
-    public void setIdProyecto(Proyecto idProyecto) {
-        this.idProyecto = idProyecto;
+    public void setIdProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
     }
 
     public Rol getIdRol() {
@@ -75,12 +69,12 @@ public class UsuarioRol implements Serializable {
         this.idRol = idRol;
     }
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
