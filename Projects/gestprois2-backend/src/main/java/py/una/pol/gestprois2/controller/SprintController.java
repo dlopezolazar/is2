@@ -5,8 +5,6 @@
  */
 package py.una.pol.gestprois2.controller;
 
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -58,10 +56,10 @@ public class SprintController {
         List<SprintModel> listModel = new ArrayList<>();
         for (Sprint sprint : sprintList) {
             model.setSprintId(sprint.getSprintId());
-            model.setSprintDescription(sprint.getSprintDescription());
-            model.setInitDate(sprint.getFechaInicio());
-            model.setEndDate(sprint.getFechaFin());
-            model.setProject(sprint.getIdProyecto());
+            model.setDescription(sprint.getSprintDescription());
+            model.setFechaInicio(sprint.getFechaInicio());
+            model.setFechaFin(sprint.getFechaFin());
+            model.setProyecto(sprint.getIdProyecto());
             
             listModel.add(model);
         }

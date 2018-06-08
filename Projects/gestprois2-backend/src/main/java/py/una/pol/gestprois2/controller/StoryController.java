@@ -6,6 +6,7 @@
 package py.una.pol.gestprois2.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -22,12 +23,15 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 import py.una.pol.gestprois2.entities.Sprint;
 import py.una.pol.gestprois2.entities.Story;
-import py.una.pol.gestprois2.entities.Usuario;
 import py.una.pol.gestprois2.facade.SprintFacade;
 import py.una.pol.gestprois2.facade.StoryFacade;
 import py.una.pol.gestprois2.facade.UsuarioFacade;
 import py.una.pol.gestprois2.facade.UsuarioRolFacade;
+import py.una.pol.gestprois2.model.ProjectModel;
+import py.una.pol.gestprois2.model.SprintModel;
+import py.una.pol.gestprois2.model.UserModel;
 import py.una.pol.gestprois2.request.StoryRequest;
+import py.una.pol.gestprois2.response.StoryResponse;
 
 /**
  *
@@ -65,7 +69,23 @@ public class StoryController {
         if(listAllStory.isEmpty()){
             return Response.noContent().build();
         }
-        return Response.ok(listAllStory).build();
+        List<StoryResponse> listModel = new ArrayList<>();
+        for (Story item : listAllStory) {
+            listModel.add(new StoryResponse(
+                    item.getIdTarea(), 
+                    item.getDescripcion(), 
+                    item.getEstado(), 
+                    new SprintModel(
+                            item.getSprintId().getSprintId(),
+                            item.getSprintId().getFechaInicio(), 
+                            item.getSprintId().getFechaFin(), 
+                            item.getSprintId().getSprintDescription(),
+                            item.getSprintId().getIdProyecto()), 
+                    new UserModel(
+                            item.getIdUsuario().getCorreo(),
+                            item.getIdUsuario().getNombreCompleto())));
+        }
+        return Response.ok(listModel).build();
     }
     
     /**
