@@ -5,6 +5,7 @@
  */
 package py.una.pol.gestprois2.facade;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -17,6 +18,7 @@ import py.una.pol.gestprois2.entities.UsuarioRol;
  *
  * @author Diego
  */
+@Stateless
 public class UsuarioRolFacade extends AbstractFacade<UsuarioRol>{
 
     @PersistenceContext(name = "gestprois2", unitName = "gestprois2-beansPU",

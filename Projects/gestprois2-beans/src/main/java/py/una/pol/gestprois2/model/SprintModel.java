@@ -5,7 +5,6 @@
  */
 package py.una.pol.gestprois2.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import py.una.pol.gestprois2.entities.Proyecto;
@@ -17,21 +16,21 @@ import py.una.pol.gestprois2.entities.Proyecto;
 public class SprintModel {
     
     private Integer sprintId;
-    private Date initDate;
-    private Date endDate;
-    private String sprintDescription;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private String description;
     @JsonIgnore
-    private Proyecto project;
+    private Proyecto proyecto;
 
     public SprintModel() {
     }
 
-    public SprintModel(Integer sprintId, Date initDate, Date endDate, String sprintDescription, Proyecto project) {
+    public SprintModel(Integer sprintId, Date fechaInicio, Date fechaFin, String description, Proyecto proyecto) {
         this.sprintId = sprintId;
-        this.initDate = initDate;
-        this.endDate = endDate;
-        this.sprintDescription = sprintDescription;
-        this.project = project;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.description = description;
+        this.proyecto = proyecto;
     }
 
     public Integer getSprintId() {
@@ -42,45 +41,43 @@ public class SprintModel {
         this.sprintId = sprintId;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    public Date getInitDate() {
-        return initDate;
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setInitDate(Date initDate) {
-        this.initDate = initDate;
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    public Date getEndDate() {
-        return endDate;
+    public Date getFechaFin() {
+        return fechaFin;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
-    public String getSprintDescription() {
-        return sprintDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setSprintDescription(String sprintDescription) {
-        this.sprintDescription = sprintDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Proyecto getProject() {
-        return project;
+    public Proyecto getProyecto() {
+        return proyecto;
     }
 
-    public void setProject(Proyecto project) {
-        this.project = project;
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
     }
 
     @Override
     public String toString() {
-        return "SprintModel{" + "sprintId=" + sprintId + ", initDate=" + initDate + ", endDate=" + endDate + ", sprintDescription=" + sprintDescription + ", project=" + project + '}';
+        return "SprintModel{" + "sprintId=" + sprintId + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", description=" + description + ", proyecto=" + proyecto + '}';
     }
-    
+
     
     
 }

@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -37,9 +38,11 @@ public class Story implements Serializable {
     private String descripcion;
     @Column(name = "estado")
     private String estado;
+    @JsonIgnore
     @JoinColumn(name = "sprint_id", referencedColumnName = "sprint_id")
     @ManyToOne(optional = false)
     private Sprint sprintId;
+    @JsonIgnore
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
