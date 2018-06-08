@@ -94,10 +94,10 @@ public class SprintActivity extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             sprintModel = new SprintModel();
                             jsonObject = jsonArray.getJSONObject(i);
-                            sprintModel.setSprintId(jsonObject.getInt("sprintId"));
-                            sprintModel.setSprintDescription(jsonObject.getString("sprintDescription"));
-                            sprintModel.setInitDate(jsonObject.getString("initDate"));
-                            sprintModel.setEndDate(jsonObject.getString("endDate"));
+                            sprintModel.setSprintId(jsonObject.getString("sprintId"));
+                            sprintModel.setSprintDescription(jsonObject.getString("description"));
+                            sprintModel.setInitDate(jsonObject.getString("fechaInicio"));
+                            sprintModel.setEndDate(jsonObject.getString("fechaFin"));
                             sprintModel.setProjectDescription(projectDesc);
 
                             listSprint.add(sprintModel);
@@ -119,6 +119,7 @@ public class SprintActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     SprintModel s = (SprintModel) adapterView.getItemAtPosition(i);
+                    System.out.println(s.toString());
                     Intent intent = new Intent(SprintActivity.this, StoryActivity.class);
                     intent.putExtra("sprintId", s.getSprintId());
                     startActivity(intent);

@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class SprintModel {
 
-    private Integer sprintId;
+    private String sprintId;
     private String initDate;
     private String endDate;
     private String sprintDescription;
@@ -17,7 +17,7 @@ public class SprintModel {
     public SprintModel() {
     }
 
-    public SprintModel(Integer sprintId, String initDate, String endDate, String sprintDescription, String projectDescription) {
+    public SprintModel(String sprintId, String initDate, String endDate, String sprintDescription, String projectDescription) {
         this.sprintId = sprintId;
         this.initDate = initDate;
         this.endDate = endDate;
@@ -25,11 +25,11 @@ public class SprintModel {
         this.projectDescription = projectDescription;
     }
 
-    public Integer getSprintId() {
+    public String getSprintId() {
         return sprintId;
     }
 
-    public void setSprintId(Integer sprintId) {
+    public void setSprintId(String sprintId) {
         this.sprintId = sprintId;
     }
 

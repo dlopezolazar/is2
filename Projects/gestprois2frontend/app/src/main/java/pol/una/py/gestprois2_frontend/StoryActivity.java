@@ -9,9 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,6 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import pol.una.py.gestprois2_frontend.adapter.StoryListViewAdapter;
 import pol.una.py.gestprois2_frontend.model.ProjectModel;
 import pol.una.py.gestprois2_frontend.model.SprintModel;
 import pol.una.py.gestprois2_frontend.model.StoryModel;
@@ -36,7 +34,7 @@ import pol.una.py.gestprois2_frontend.model.UserModel;
 public class StoryActivity extends AppCompatActivity {
 
     //private static final String STORY = "http://192.168.1.61:8080/gestprois2-backend/api/sprint";
-    private static final String STORY = "http://192.168.0.112:8080/gestprois2-backend/api/sprint";
+    private static final String STORY = "http://192.168.0.112:8080/gestprois2-backend/api/story";
 
     ListView listView;
     String jsonObjectResponse ;
@@ -46,7 +44,9 @@ public class StoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
 
-        String ENDPOINT = STORY+"/"+getIntent().getStringExtra("sprintId");
+        listView = findViewById(R.id.storyListView);
+
+        final String ENDPOINT = STORY+"/"+getIntent().getStringExtra("sprintId");
 
         StringRequest request = new StringRequest(Request.Method.GET, ENDPOINT, new Response.Listener<String>() {
             @Override
@@ -105,25 +105,25 @@ public class StoryActivity extends AppCompatActivity {
                             storyModel.setIdTask(jsonObject.getInt("idTarea"));
                             storyModel.setTaskDescription(jsonObject.getString("descripcion"));
                             storyModel.setState(jsonObject.getString("estado"));
-                            jsonSprint = jsonObject.getJSONObject("sprintId");
+                            jsonSprint = jsonObject.getJSONObject("sprint");
                             storyModel.setSprint(new SprintModel(
-                                    jsonSprint.getInt("sprintId"),
-                                    jsonSprint.getString("sprintDescription"),
+                                    jsonSprint.getString("sprintId"),
+                                    jsonSprint.getString("description"),
                                     jsonSprint.getString("fechaInicio"),
                                     jsonSprint.getString("fechaFin"),
                                     ""
                             ));
-                            jsonProject = jsonObject.getJSONObject("idProyecto");
+                            /*jsonProject = jsonObject.getJSONObject("proyecto");
                             storyModel.setProject(new ProjectModel(
                                     jsonObject.getString("idProyecto"),
                                     jsonObject.getString("nombre"),
                                     jsonObject.getString("fechaInicio"),
                                     jsonObject.getString("fechaFin")
-                            ));
-                            jsonUSer = jsonObject.getJSONObject("idUsuario");
+                            ));*/
+                            jsonUSer = jsonObject.getJSONObject("usuario");
                             storyModel.setUser(new UserModel(
-                                    jsonObject.getString("correo"),
-                                    jsonObject.getString("nombreCompleto")
+                                    jsonUSer.getString("correo"),
+                                    jsonUSer.getString("nombreCompleto")
                             ));
 
                             listStory.add(storyModel);
@@ -141,7 +141,8 @@ public class StoryActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result){
-
+            StoryListViewAdapter adapter = new StoryListViewAdapter(listStory, context);
+            listView.setAdapter(adapter);
 
         }
     }

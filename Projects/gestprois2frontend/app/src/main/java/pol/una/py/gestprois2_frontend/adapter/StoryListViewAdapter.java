@@ -21,7 +21,7 @@ public class StoryListViewAdapter extends BaseAdapter{
     Context context;
     List<StoryModel> listStory;
 
-    public StoryListViewAdapter(Context context, List<StoryModel> listStory) {
+    public StoryListViewAdapter(List<StoryModel> listStory, Context context) {
         this.context = context;
         this.listStory = listStory;
     }
@@ -62,7 +62,7 @@ public class StoryListViewAdapter extends BaseAdapter{
             viewStoryItem = (ViewStoryItem) view.getTag();
         }
 
-        viewStoryItem.projectName.setText(listStory.get(i).getProject().getProjectName());
+        viewStoryItem.projectName.setText("Project");
         viewStoryItem.sprintName.setText(listStory.get(i).getSprint().getSprintDescription());
         viewStoryItem.taskName.setText(listStory.get(i).getTaskDescription());
         viewStoryItem.taskState.setText(listStory.get(i).getState());
