@@ -11,15 +11,25 @@ package py.una.pol.gestprois2.model;
  */
 public class UserModel {
     
+    private Integer idUsuario;
     private String correo;
     private String nombreCompleto;
 
     public UserModel() {
     }
 
-    public UserModel(String correo, String nombreCompleto) {
+    public UserModel(Integer idUsuario, String correo, String nombreCompleto) {
+        this.idUsuario = idUsuario;
         this.correo = correo;
         this.nombreCompleto = nombreCompleto;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getCorreo() {
