@@ -27,7 +27,6 @@ import py.una.pol.gestprois2.facade.SprintFacade;
 import py.una.pol.gestprois2.facade.StoryFacade;
 import py.una.pol.gestprois2.facade.UsuarioFacade;
 import py.una.pol.gestprois2.facade.UsuarioRolFacade;
-import py.una.pol.gestprois2.model.ProjectModel;
 import py.una.pol.gestprois2.model.SprintModel;
 import py.una.pol.gestprois2.model.UserModel;
 import py.una.pol.gestprois2.request.StoryRequest;
@@ -82,6 +81,7 @@ public class StoryController {
                             item.getSprintId().getSprintDescription(),
                             item.getSprintId().getIdProyecto()), 
                     new UserModel(
+                            item.getIdUsuario().getIdUsuario(),
                             item.getIdUsuario().getCorreo(),
                             item.getIdUsuario().getNombreCompleto())));
         }
