@@ -5,49 +5,54 @@
  */
 package py.una.pol.gestprois2.facade;
 
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
-import py.una.pol.gestprois2.entities.Sprint;
-import py.una.pol.gestprois2.entities.Story;
+import py.una.pol.gestprois2.entities.Proyecto;
+import py.una.pol.gestprois2.entities.Usuario;
+import py.una.pol.gestprois2.entities.UsuarioRol;
 
 /**
  *
  * @author Diego
  */
 @Stateless
-public class StoryFacade extends AbstractFacade<Story>{
+public class UsuarioRolFacade extends AbstractFacade<UsuarioRol>{
 
     @PersistenceContext(name = "gestprois2", unitName = "gestprois2-beansPU",
     type=PersistenceContextType.TRANSACTION)
     private EntityManager em;
     
-    public StoryFacade() {
-        super(Story.class);
+    public UsuarioRolFacade() {
+        super(UsuarioRol.class);
     }
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
     
-    public List<Story> findAllStoryBySprint(Sprint sprint){
+    public Usuario findUserInProject(Proyecto project, Usuario user){
         
         try {
-            Query query = em.createQuery("SELECT S FROM Story S "
-                    + "WHERE S.sprintId = :sprint ");
-            query.setParameter("sprint", sprint);
+            Query query = em
+                    .createQuery("SELECT U FROM UsuarioRol U "
+                            + "WHERE U.usuario = :user "
+                                     + "AND U.proyecto = :project");
+            query.setParameter("user", user);
+            query.setParameter("project", project);
+            Usuario u = null;
+            if(query.getMaxResults() >= 1){
+               u = (Usuario) query.getSingleResult();
+            }
             
-            List<Story> storyList = query.getResultList();
-            
-            return storyList;
+            return u;
         } catch (Exception e) {
             System.err.println(e);
             return null;
         }
-    }
+    } 
     
 }

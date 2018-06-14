@@ -6,6 +6,7 @@
 package py.una.pol.gestprois2.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -24,6 +25,12 @@ import py.una.pol.gestprois2.entities.Sprint;
 import py.una.pol.gestprois2.entities.Story;
 import py.una.pol.gestprois2.facade.SprintFacade;
 import py.una.pol.gestprois2.facade.StoryFacade;
+import py.una.pol.gestprois2.facade.UsuarioFacade;
+import py.una.pol.gestprois2.facade.UsuarioRolFacade;
+import py.una.pol.gestprois2.model.SprintModel;
+import py.una.pol.gestprois2.model.UserModel;
+import py.una.pol.gestprois2.request.StoryRequest;
+import py.una.pol.gestprois2.response.StoryResponse;
 
 /**
  *
@@ -36,17 +43,21 @@ public class StoryController {
     private StoryFacade story;
     @EJB
     private SprintFacade sprint;
+    @EJB
+    private UsuarioRolFacade usuarioRol;
+    @EJB
+    private UsuarioFacade usuario;
     
     private static final Logger LOGGER = Logger.getLogger(StoryController.class);
     
     private static final String STORY_ALL = "/{sprintId}";
-    
     private static final String STORY     = "/{sprintId}/{storyId}";
+    
     @GET
     @Path(STORY_ALL)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllSttory(@PathParam("sprintId") Integer sprintId){
-        System.out.println("UsuarioController.getAllStoryPerSprint");
+        System.out.println("Story.getAllStoryPerSprint");
         Sprint sp = sprint.find(sprintId);
         
         if(sp == null){
@@ -57,7 +68,24 @@ public class StoryController {
         if(listAllStory.isEmpty()){
             return Response.noContent().build();
         }
-        return Response.ok(listAllStory).build();
+        List<StoryResponse> listModel = new ArrayList<>();
+        for (Story item : listAllStory) {
+            listModel.add(new StoryResponse(
+                    item.getIdTarea(), 
+                    item.getDescripcion(), 
+                    item.getEstado(), 
+                    new SprintModel(
+                            item.getSprintId().getSprintId(),
+                            item.getSprintId().getFechaInicio(), 
+                            item.getSprintId().getFechaFin(), 
+                            item.getSprintId().getSprintDescription(),
+                            item.getSprintId().getIdProyecto()), 
+                    new UserModel(
+                            item.getIdUsuario().getIdUsuario(),
+                            item.getIdUsuario().getCorreo(),
+                            item.getIdUsuario().getNombreCompleto())));
+        }
+        return Response.ok(listModel).build();
     }
     
     /**
@@ -83,9 +111,27 @@ public class StoryController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response saveStory(Story st){
+    public Response saveStory(StoryRequest st){
         try {
-            story.create(st);
+            
+            if(st.getStoryId() != null){
+                return Response.status(Response.Status.FORBIDDEN).build();
+            }
+            
+            Story s = new Story();
+            s.setDescripcion(st.getDescripcion());
+            s.setEstado(st.getEstado());
+            Sprint sp = sprint.find(st.getSprintId());
+            if(sp == null){
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            s.setSprintId(sp);
+            
+            s.setIdUsuario(usuarioRol.findUserInProject(sp.getIdProyecto(), usuario.find(st.getIdUsuario())));
+            
+            
+            story.create(s);
+            
             return Response.created(URI.create("")).build();
         } catch (Exception e) {
             LOGGER.error(e);
@@ -96,9 +142,25 @@ public class StoryController {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateStory(Story st){
+    public Response updateStory(StoryRequest st){
         try {
-            story.edit(st);
+            if(st.getStoryId() == null){
+                return Response.status(Response.Status.FORBIDDEN).build();
+            }
+            
+            Story s = new Story();
+            s.setDescripcion(st.getDescripcion());
+            s.setEstado(st.getEstado());
+            Sprint sp = sprint.find(st.getSprintId());
+            if(sp == null){
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            s.setSprintId(sp);
+            
+            s.setIdUsuario(usuarioRol.findUserInProject(sp.getIdProyecto(), usuario.find(st.getIdUsuario())));
+
+            story.edit(s);
+            
             return Response.ok().build();
         } catch (Exception e) {
             LOGGER.error(e);
@@ -114,9 +176,18 @@ public class StoryController {
     @DELETE
     @Path("/{storyId}")
     public Response deleteStory(@PathParam("storyId") Integer userId){
-        Story s = story.find(userId);
-        story.remove(s);
-        return Response.ok().build();
+        try {
+            Story s = story.find(userId);
+            if(s==null){
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            story.remove(s);
+            
+            return Response.ok().build();
+        } catch (Exception e) {
+            LOGGER.error(e);
+            return Response.serverError().build();
+        }
     }
     
     

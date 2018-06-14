@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -45,6 +47,10 @@ public class Usuario implements Serializable {
     private String password; 
     @OneToMany(mappedBy = "usuario")
     private List<Sesion> sesionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    @JsonIgnore
+    private List<Story> storyList;
+    
     
     public Usuario() {
     }
@@ -133,6 +139,16 @@ public class Usuario implements Serializable {
 
     public void setSesionList(List<Sesion> sesionList) {
         this.sesionList = sesionList;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<Story> getStoryList() {
+        return storyList;
+    }
+
+    public void setStoryList(List<Story> storyList) {
+        this.storyList = storyList;
     }
     
 }

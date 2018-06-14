@@ -49,8 +49,8 @@ public class UserListViewAdapter extends BaseAdapter{
         if(convertView == null){
             viewItem = new ViewUserItem();
 
-            LayoutInflater layoutInfiater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInfiater.inflate(R.layout.usuario_items, null);
+            LayoutInflater layoutInflater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.usuario_items, null);
 
             viewItem.IdTextView = (TextView)convertView.findViewById(R.id.textviewID);
             viewItem.NameTextView = (TextView)convertView.findViewById(R.id.text1);

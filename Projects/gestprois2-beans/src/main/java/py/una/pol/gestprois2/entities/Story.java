@@ -9,13 +9,14 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -23,26 +24,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "story")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Story.findAll", query = "SELECT s FROM Story s"),
-    @NamedQuery(name = "Story.findByIdTarea", query = "SELECT s FROM Story s WHERE s.idTarea = :idTarea"),
-    @NamedQuery(name = "Story.findByEstado", query = "SELECT s FROM Story s WHERE s.estado = :estado")})
 public class Story implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
+    @SequenceGenerator(name="StorySeq", sequenceName = "story_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.AUTO, generator = "StorySeq")
     @Column(name = "id_tarea")
     private Integer idTarea;
-    @Basic(optional = false)
-    @javax.validation.constraints.NotNull
-    @javax.validation.constraints.Size(min = 1, max = 2147483647)
+    @Column(name = "descripcion")
+    private String descripcion;
     @Column(name = "estado")
     private String estado;
+    @JsonIgnore
     @JoinColumn(name = "sprint_id", referencedColumnName = "sprint_id")
     @ManyToOne(optional = false)
     private Sprint sprintId;
+    @JsonIgnore
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
@@ -114,6 +114,14 @@ public class Story implements Serializable {
     @Override
     public String toString() {
         return "py.una.pol.gestprois2.entities.Story[ idTarea=" + idTarea + " ]";
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
 }

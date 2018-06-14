@@ -54,8 +54,8 @@ public class ProjectListViewAdapter  extends BaseAdapter{
 
             viewItem.projectId = (TextView) view.findViewById(R.id.codProject);
             viewItem.projectName = (TextView) view.findViewById(R.id.nameProject);
-            viewItem.projectInitDate = (TextView) view.findViewById(R.id.initDate);
-            viewItem.projectEndDate = (TextView) view.findViewById(R.id.endDate);
+            viewItem.projectInitDate = (TextView) view.findViewById(R.id.userName);
+            viewItem.projectEndDate = (TextView) view.findViewById(R.id.state);
 
             view.setTag(viewItem);
         }

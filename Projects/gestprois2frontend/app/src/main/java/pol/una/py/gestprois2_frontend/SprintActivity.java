@@ -23,15 +23,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import pol.una.py.gestprois2_frontend.adapter.ProjectListViewAdapter;
-import pol.una.py.gestprois2_frontend.model.ProjectModel;
+import pol.una.py.gestprois2_frontend.adapter.SprintListViewAdapter;
+import pol.una.py.gestprois2_frontend.model.SprintModel;
 
-public class ProjectActivity extends AppCompatActivity {
+public class SprintActivity extends AppCompatActivity {
 
-    //private static final String PROJECT = "http://192.168.1.61:8080/gestprois2-backend/api/proyecto";
-    private static final String PROJECT = "http://192.168.0.112:8080/gestprois2-backend/api/proyecto";
+    //private static final String SPRINT = "http://192.168.1.61:8080/gestprois2-backend/api/sprint";
+    private static final String SPRINT = "http://192.168.0.112:8080/gestprois2-backend/api/sprint";
 
     ListView listView;
     String jsonObjectResponse ;
@@ -39,34 +40,38 @@ public class ProjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project);
+        setContentView(R.layout.activity_sprint);
 
-        listView = findViewById(R.id.projectListView);
+        listView = findViewById(R.id.sprintListView);
 
-        StringRequest request = new StringRequest(Request.Method.GET, PROJECT, new Response.Listener<String>() {
+        String ENDPOINT = SPRINT+"/"+getIntent().getStringExtra("projectId");
+
+        StringRequest request = new StringRequest(Request.Method.GET, ENDPOINT, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 jsonObjectResponse = response;
-                new ProjectListResponse(ProjectActivity.this).execute();
+                new SprintActivity.SprintListResponse(SprintActivity.this).execute();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(ProjectActivity.this, "Some error occurred -> " + error,
+                Toast.makeText(SprintActivity.this, "Some error occurred -> " + error,
                         Toast.LENGTH_LONG).show();
                 Log.e("VOLLEY", error.getStackTrace().toString());
             }
         });
 
-        RequestQueue rQueue = Volley.newRequestQueue(ProjectActivity.this);
+        RequestQueue rQueue = Volley.newRequestQueue(SprintActivity.this);
         rQueue.add(request);
+
     }
 
-    private class ProjectListResponse extends AsyncTask<Void, Void, Void>{
-        public Context context;
-        List<ProjectModel> listProjects;
+    private class SprintListResponse extends AsyncTask<Void, Void, Void>{
 
-        public ProjectListResponse(Context context) {
+        public Context context;
+        List<SprintModel> listSprint;
+
+        public SprintListResponse(Context context) {
             this.context = context;
         }
 
@@ -78,22 +83,24 @@ public class ProjectActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
+                String projectDesc = getIntent().getStringExtra("projectName");
                 if(jsonObjectResponse != null){
                     JSONArray jsonArray = null;
                     try {
                         jsonArray = new JSONArray(jsonObjectResponse);
                         JSONObject jsonObject = null;
-                        ProjectModel projectModel;
-                        listProjects = new ArrayList<>();
+                        SprintModel sprintModel;
+                        listSprint = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            projectModel = new ProjectModel();
+                            sprintModel = new SprintModel();
                             jsonObject = jsonArray.getJSONObject(i);
-                            projectModel.setProjectId(jsonObject.getString("idProyecto"));
-                            projectModel.setProjectName(jsonObject.getString("nombre"));
-                            projectModel.setProjectInitDate(jsonObject.getString("fechaInicio"));
-                            projectModel.setProjectEndDate(jsonObject.getString("fechaFin"));
+                            sprintModel.setSprintId(jsonObject.getString("sprintId"));
+                            sprintModel.setSprintDescription(jsonObject.getString("description"));
+                            sprintModel.setInitDate(jsonObject.getString("fechaInicio"));
+                            sprintModel.setEndDate(jsonObject.getString("fechaFin"));
+                            sprintModel.setProjectDescription(projectDesc);
 
-                            listProjects.add(projectModel);
+                            listSprint.add(sprintModel);
                         }
                     } catch (JSONException ex){
                         ex.printStackTrace();
@@ -104,22 +111,21 @@ public class ProjectActivity extends AppCompatActivity {
             }
             return null;
         }
-
         @Override
         protected void onPostExecute(Void result){
-            ProjectListViewAdapter adapter = new ProjectListViewAdapter(listProjects, context);
+            SprintListViewAdapter adapter = new SprintListViewAdapter(listSprint, context);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    ProjectModel p = (ProjectModel) adapterView.getItemAtPosition(i);
-                    Intent intent = new Intent(ProjectActivity.this, SprintActivity.class);
-                    intent.putExtra("projectId", p.getProjectId());
-                    intent.putExtra("projectName", p.getProjectName());
+                    SprintModel s = (SprintModel) adapterView.getItemAtPosition(i);
+                    System.out.println(s.toString());
+                    Intent intent = new Intent(SprintActivity.this, StoryActivity.class);
+                    intent.putExtra("sprintId", s.getSprintId());
                     startActivity(intent);
                 }
             });
-            // progressBar.setVisibility(View.GONE);
+
         }
     }
 }
