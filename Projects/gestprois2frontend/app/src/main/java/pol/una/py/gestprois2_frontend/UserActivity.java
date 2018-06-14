@@ -1,9 +1,11 @@
 package pol.una.py.gestprois2_frontend;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pol.una.py.gestprois2_frontend.adapter.UserListViewAdapter;
+import pol.una.py.gestprois2_frontend.model.StoryModel;
 import pol.una.py.gestprois2_frontend.model.UserModel;
 
 public class UserActivity extends AppCompatActivity {
@@ -121,11 +124,9 @@ public class UserActivity extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             user = new UserModel();
                             jsonObject = jsonArray.getJSONObject(i);
-                            //Storing ID into subject list.
+                            user.setUserId(jsonObject.getInt("idUsuario"));
                             user.setEmail(jsonObject.getString("correo"));
-                            //Storing Subject name in subject list.
                             user.setFullName(jsonObject.getString("nombreCompleto"));
-                            // Adding subject list object into CustomSubjectNamesList.
                             customList.add(user);
                         }
                     } catch (JSONException e) {
@@ -158,6 +159,53 @@ public class UserActivity extends AppCompatActivity {
                 }
             });
 
+            //Esto sirve para que al mantener presionado un elemento de la lista nos pregunte
+            //si estamos seguros de eliminar el registro
+            //si -> elimina
+            //no -> cierra popup, vuelva a mostrar la lista
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    UserModel um = (UserModel) parent.getItemAtPosition(position);
+                    final String deleteEndpoint = USUARIO+"/"+um.getUserId();
+                    AlertDialog.Builder myQuittingDialogBox =new AlertDialog.Builder(UserActivity.this)
+                            //set message, title, and icon
+                            .setTitle("Delete")
+                            .setMessage("Esta seguro de eliminar?")
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    //your deleting code
+                                    StringRequest request = new StringRequest(Request.Method.DELETE, deleteEndpoint, new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            Log.d("Deleted Story: ", response.toString());
+                                        }
+                                    }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(UserActivity.this, "Some error occurred -> " + error,
+                                                    Toast.LENGTH_LONG).show();
+                                            Log.e("VOLLEY", error.getStackTrace().toString());
+                                        }
+                                    });
+
+                                    dialog.dismiss();
+                                }
+
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    dialog.dismiss();
+
+                                }
+                            });
+                    myQuittingDialogBox.show();
+
+                    return true;
+                }
+            });
             // Hiding progress bar after all JSON loading done.
             // progressBar.setVisibility(View.GONE);
         }

@@ -43,18 +43,18 @@ public class StoryListViewAdapter extends BaseAdapter{
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewStoryItem viewStoryItem = null;
+        ViewStoryItem viewStoryItem;
 
         if(view == null){
             viewStoryItem = new ViewStoryItem();
             LayoutInflater layoutInfiater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             view = layoutInfiater.inflate(R.layout.story_items, null);
 
-            viewStoryItem.projectName = (TextView) view.findViewById(R.id.nameProject);
-            viewStoryItem.sprintName = (TextView) view.findViewById(R.id.nameSprint);
-            viewStoryItem.taskName = (TextView) view.findViewById(R.id.userName);
-            viewStoryItem.taskState = (TextView) view.findViewById(R.id.state);
-            viewStoryItem.userName = (TextView) view.findViewById(R.id.state);
+            viewStoryItem.projectName = view.findViewById(R.id.nameProject);
+            viewStoryItem.sprintName = view.findViewById(R.id.nameSprint);
+            viewStoryItem.taskName = view.findViewById(R.id.userName);
+            viewStoryItem.taskState = view.findViewById(R.id.state);
+            viewStoryItem.userName = view.findViewById(R.id.state);
 
             view.setTag(viewStoryItem);
         }

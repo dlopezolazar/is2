@@ -1,13 +1,16 @@
 package pol.una.py.gestprois2_frontend;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pol.una.py.gestprois2_frontend.adapter.StoryListViewAdapter;
-import pol.una.py.gestprois2_frontend.model.ProjectModel;
 import pol.una.py.gestprois2_frontend.model.SprintModel;
 import pol.una.py.gestprois2_frontend.model.StoryModel;
 import pol.una.py.gestprois2_frontend.model.UserModel;
@@ -122,6 +124,7 @@ public class StoryActivity extends AppCompatActivity {
                             ));*/
                             jsonUSer = jsonObject.getJSONObject("usuario");
                             storyModel.setUser(new UserModel(
+                                    jsonUSer.getInt("idUsuario"),
                                     jsonUSer.getString("correo"),
                                     jsonUSer.getString("nombreCompleto")
                             ));
@@ -143,6 +146,62 @@ public class StoryActivity extends AppCompatActivity {
         protected void onPostExecute(Void result){
             StoryListViewAdapter adapter = new StoryListViewAdapter(listStory, context);
             listView.setAdapter(adapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    StoryModel sm = (StoryModel) adapterView.getItemAtPosition(i);
+                    Intent intent = new Intent(StoryActivity.this, StoryDetailActivity.class);
+                    intent.putExtra("taskDescription", sm.getTaskDescription());
+                    intent.putExtra("userName", sm.getUser().getFullName());
+                    intent.putExtra("state", sm.getState());
+                    startActivity(intent);
+                }
+            });
+
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    StoryModel sm = (StoryModel) parent.getItemAtPosition(position);
+                    final String deleteEndpoint = STORY+"/"+sm.getIdTask();
+                    AlertDialog.Builder myQuittingDialogBox =new AlertDialog.Builder(StoryActivity.this)
+                            //set message, title, and icon
+                            .setTitle("Delete")
+                            .setMessage("Esta seguro de eliminar?")
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    //your deleting code
+                                    StringRequest request = new StringRequest(Request.Method.DELETE, deleteEndpoint, new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            Log.d("Deleted Story: ", response.toString());
+                                        }
+                                    }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(StoryActivity.this, "Some error occurred -> " + error,
+                                                    Toast.LENGTH_LONG).show();
+                                            Log.e("VOLLEY", error.getStackTrace().toString());
+                                        }
+                                    });
+
+                                    dialog.dismiss();
+                                }
+
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    dialog.dismiss();
+
+                                }
+                            });
+                    myQuittingDialogBox.show();
+
+                    return true;
+                }
+            });
 
         }
     }
