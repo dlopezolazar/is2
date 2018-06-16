@@ -11,9 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,14 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pol.una.py.gestprois2_frontend.adapter.UserListViewAdapter;
-import pol.una.py.gestprois2_frontend.model.StoryModel;
 import pol.una.py.gestprois2_frontend.model.UserModel;
 
 public class UserActivity extends AppCompatActivity {
 
 
-    //private static final String USUARIO = "http://192.168.1.61:8080/gestprois2-backend/api/usuario";
-    private static final String USUARIO = "http://192.168.0.112:8080/gestprois2-backend/api/usuario";
+    private static final String USUARIO = "http://192.168.1.4:8080/gestprois2-backend/api/usuario";
+    //private static final String USUARIO = "http://192.168.0.112:8080/gestprois2-backend/api/usuario";
 
     ListView listView;
     String jsonObjectResponse ;
@@ -127,6 +124,7 @@ public class UserActivity extends AppCompatActivity {
                             user.setUserId(jsonObject.getInt("idUsuario"));
                             user.setEmail(jsonObject.getString("correo"));
                             user.setFullName(jsonObject.getString("nombreCompleto"));
+                            user.setUid(jsonObject.getString("uid"));
                             customList.add(user);
                         }
                     } catch (JSONException e) {
@@ -155,6 +153,8 @@ public class UserActivity extends AppCompatActivity {
                     Intent intent = new Intent(UserActivity.this, UserDetailActivity.class);
                     intent.putExtra("email", u.getEmail());
                     intent.putExtra("name", u.getFullName());
+                    intent.putExtra("uid", u.getUid());
+                    intent.putExtra("id", u.getUserId().toString());
                     startActivity(intent);
                 }
             });
@@ -165,7 +165,7 @@ public class UserActivity extends AppCompatActivity {
             //no -> cierra popup, vuelva a mostrar la lista
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
                     UserModel um = (UserModel) parent.getItemAtPosition(position);
                     final String deleteEndpoint = USUARIO+"/"+um.getUserId();
                     AlertDialog.Builder myQuittingDialogBox =new AlertDialog.Builder(UserActivity.this)
@@ -179,7 +179,9 @@ public class UserActivity extends AppCompatActivity {
                                     StringRequest request = new StringRequest(Request.Method.DELETE, deleteEndpoint, new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
-                                            Log.d("Deleted Story: ", response.toString());
+                                            finish();
+                                            startActivity(getIntent());
+                                            Log.d("Deleted User: ", response.toString());
                                         }
                                     }, new Response.ErrorListener() {
                                         @Override
@@ -189,6 +191,9 @@ public class UserActivity extends AppCompatActivity {
                                             Log.e("VOLLEY", error.getStackTrace().toString());
                                         }
                                     });
+
+                                    RequestQueue rQueue = Volley.newRequestQueue(UserActivity.this);
+                                    rQueue.add(request);
 
                                     dialog.dismiss();
                                 }

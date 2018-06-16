@@ -323,12 +323,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
+            /*try {
                 // Simulate network access.
                 Thread.sleep(20000);
             } catch (InterruptedException e) {
                 return false;
-            }
+            }*/
             //LOGIN A USER
             JSONObject body = new JSONObject();
             try {
@@ -336,50 +336,52 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 body.put("password", mPasswordView.getText().toString());
                 final String requestBody = body.toString();
 
-            StringRequest request = new StringRequest(Request.Method.POST, LOGIN_URL,
-                    new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Toast.makeText(LoginActivity.this, "Login Succesful",
-                            Toast.LENGTH_LONG).show();
-                    Log.i("VOLLEY", response);
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(LoginActivity.this, "Some error occurred -> "+error,
-                            Toast.LENGTH_LONG).show();
-                    Log.e("VOLLEY", error.getStackTrace().toString());
-                }
-            }){
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
-
-                @Override
-                public byte[] getBody() throws AuthFailureError {
-                    try {
-                        return requestBody == null ? null : requestBody.getBytes("utf-8");
-                    } catch (UnsupportedEncodingException uee) {
-                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
-                        return null;
+                StringRequest request = new StringRequest(Request.Method.POST, LOGIN_URL,
+                        new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(LoginActivity.this, "Login Succesful",
+                                Toast.LENGTH_LONG).show();
+                        Log.i("VOLLEY", response);
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     }
-                }
-
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        // can get more details such as response.headers
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(LoginActivity.this, "Some error occurred -> "+error,
+                                Toast.LENGTH_LONG).show();
+                        Log.e("VOLLEY", error.getStackTrace().toString());
                     }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                }
-            };
+                }){
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8";
+                    }
+
+                    @Override
+                    public byte[] getBody() throws AuthFailureError {
+                        try {
+                            return requestBody == null ? null : requestBody.getBytes("utf-8");
+                        } catch (UnsupportedEncodingException uee) {
+                            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                            return null;
+                        }
+                    }
+
+                    @Override
+                    protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                        String responseString = "";
+                        if (response != null) {
+                            responseString = String.valueOf(response.statusCode);
+                            // can get more details such as response.headers
+                        }
+                        return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                    }
+                };
+
                 RequestQueue rQueue = Volley.newRequestQueue(LoginActivity.this);
                 rQueue.add(request);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

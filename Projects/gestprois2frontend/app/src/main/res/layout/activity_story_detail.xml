@@ -10,7 +10,7 @@
         android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nuevo Tarea"
+        android:text="Nueva Tarea"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.908"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -31,10 +31,10 @@
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/faGuardar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.118"
+        app:layout_constraintVertical_bias="0.119"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <EditText
@@ -53,7 +53,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/edState"
+        android:id="@+id/edUserName"
         android:layout_width="181dp"
         android:layout_height="40dp"
         android:layout_marginBottom="192dp"
@@ -73,6 +73,7 @@
         android:layout_height="54dp"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
         app:backgroundTint="@android:color/black"
@@ -80,8 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtFecha"
         app:layout_constraintVertical_bias="0.489"
-        app:srcCompat="@android:drawable/ic_menu_save"
-        android:layout_marginRight="52dp" />
+        app:srcCompat="@android:drawable/ic_menu_save" />
 
     <TextView
         android:id="@+id/txtFecha"
@@ -94,9 +94,9 @@
         android:text="Fecha de creación"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edState"
+        app:layout_constraintTop_toBottomOf="@+id/edUserName"
         app:layout_constraintVertical_bias="0.161" />
 
 </android.support.constraint.ConstraintLayout>

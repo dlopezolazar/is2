@@ -17,7 +17,7 @@ public class StoryDetailActivity extends AppCompatActivity {
 
         ((TextView)findViewById(R.id.edTaskDescription)).setText(getIntent().getStringExtra("taskDescription"));
         ((TextView)findViewById(R.id.edUser)).setText(getIntent().getStringExtra("userName"));
-        ((TextView)findViewById(R.id.edState)).setText(getIntent().getStringExtra("state"));
+        ((TextView)findViewById(R.id.edUserName)).setText(getIntent().getStringExtra("state"));
         ((TextView)findViewById(R.id.txtFecha)).setText(new Date().toString());
 
         FloatingActionButton buttonSave = findViewById(R.id.faGuardar);

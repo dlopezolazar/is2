@@ -52,8 +52,9 @@ public class UserListViewAdapter extends BaseAdapter{
             LayoutInflater layoutInflater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.usuario_items, null);
 
-            viewItem.IdTextView = (TextView)convertView.findViewById(R.id.textviewID);
-            viewItem.NameTextView = (TextView)convertView.findViewById(R.id.text1);
+            viewItem.uidTextView = (TextView)convertView.findViewById(R.id.uid);
+            viewItem.IdTextView = (TextView)convertView.findViewById(R.id.fullName);
+            viewItem.NameTextView = (TextView)convertView.findViewById(R.id.correo);
 
             convertView.setTag(viewItem);
         }
@@ -61,6 +62,7 @@ public class UserListViewAdapter extends BaseAdapter{
             viewItem = (ViewUserItem) convertView.getTag();
         }
 
+        viewItem.uidTextView.setText(tempList.get(position).getUid());
         viewItem.IdTextView.setText(tempList.get(position).getEmail());
         viewItem.NameTextView.setText(tempList.get(position).getFullName());
 
@@ -71,5 +73,6 @@ public class UserListViewAdapter extends BaseAdapter{
 
         TextView IdTextView;
         TextView NameTextView;
+        TextView uidTextView;
     }
 }

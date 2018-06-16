@@ -31,8 +31,8 @@ import pol.una.py.gestprois2_frontend.model.SprintModel;
 
 public class SprintActivity extends AppCompatActivity {
 
-    //private static final String SPRINT = "http://192.168.1.61:8080/gestprois2-backend/api/sprint";
-    private static final String SPRINT = "http://192.168.0.112:8080/gestprois2-backend/api/sprint";
+    private static final String SPRINT = "http://192.168.1.4:8080/gestprois2-backend/api/sprint";
+    //private static final String SPRINT = "http://192.168.0.112:8080/gestprois2-backend/api/sprint";
 
     ListView listView;
     String jsonObjectResponse ;
