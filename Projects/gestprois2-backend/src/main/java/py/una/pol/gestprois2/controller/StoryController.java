@@ -149,6 +149,7 @@ public class StoryController {
             }
             
             Story s = new Story();
+            s.setIdTarea(st.getStoryId());
             s.setDescripcion(st.getDescripcion());
             s.setEstado(st.getEstado());
             Sprint sp = sprint.find(st.getSprintId());
