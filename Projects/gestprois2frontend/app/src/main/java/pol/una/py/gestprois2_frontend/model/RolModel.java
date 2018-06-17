@@ -32,6 +32,7 @@ public class RolModel {
     public String toString() {
         final StringBuffer sb = new StringBuffer("UserModel{");
         sb.append("id_rol=").append(id_rol);
+        sb.append(", rol_descripcion='").append(rol_descripcion).append('\'');
         sb.append('}');
         return sb.toString();
     }
