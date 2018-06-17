@@ -38,7 +38,7 @@ public class UsuarioRolFacade extends AbstractFacade<UsuarioRol>{
         
         try {
             Query query = em
-                    .createQuery("SELECT U FROM UsuarioRol U "
+                    .createQuery("SELECT U.usuario FROM UsuarioRol U "
                             + "WHERE U.usuario = :user "
                                      + "AND U.proyecto = :project");
             query.setParameter("user", user);

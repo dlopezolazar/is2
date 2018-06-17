@@ -30,7 +30,7 @@ public class Story implements Serializable {
     
     @Id
     @Basic(optional = false)
-    @SequenceGenerator(name="StorySeq", sequenceName = "story_seq", allocationSize=1)
+    @SequenceGenerator(name="StorySeq", sequenceName = "story_sequence", allocationSize=1)
     @GeneratedValue(strategy=GenerationType.AUTO, generator = "StorySeq")
     @Column(name = "id_tarea")
     private Integer idTarea;
