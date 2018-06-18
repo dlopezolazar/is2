@@ -26,18 +26,18 @@
         app:layout_constraintTop_toBottomOf="@+id/sprintText" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/butonNew"
+        android:id="@+id/newSprint"
         android:layout_width="49dp"
         android:layout_height="54dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
         app:backgroundTint="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/projectListView"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_marginRight="8dp" />
 
 </android.support.constraint.ConstraintLayout>

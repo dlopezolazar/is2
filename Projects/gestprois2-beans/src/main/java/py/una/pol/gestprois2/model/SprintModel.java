@@ -5,8 +5,9 @@
  */
 package py.una.pol.gestprois2.model;
 
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import py.una.pol.gestprois2.entities.Proyecto;
 
 /**

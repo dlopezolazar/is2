@@ -45,6 +45,11 @@
         <activity android:name=".StoryDetailActivity" />
         <activity android:name=".RolDetailActivity" />
         <activity android:name=".RolActivity"></activity>
+        <activity
+            android:name=".ProjectDetailActivity"
+            android:label="@string/title_activity_project_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SprintDetailActivity"></activity>
     </application>
 
 </manifest>

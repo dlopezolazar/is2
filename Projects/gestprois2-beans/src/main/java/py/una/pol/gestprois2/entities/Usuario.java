@@ -5,11 +5,11 @@
  */
 package py.una.pol.gestprois2.entities;
 
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +20,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -52,9 +51,9 @@ public class Usuario implements Serializable {
     private String password; 
     @OneToMany(mappedBy = "usuario")
     private List<Sesion> sesionList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    @JsonIgnore
-    private List<Story> storyList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+//    @JsonIgnore
+//    private List<Story> storyList;
     
     
     public Usuario() {
@@ -146,14 +145,14 @@ public class Usuario implements Serializable {
         this.sesionList = sesionList;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<Story> getStoryList() {
-        return storyList;
-    }
-
-    public void setStoryList(List<Story> storyList) {
-        this.storyList = storyList;
-    }
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<Story> getStoryList() {
+//        return storyList;
+//    }
+//
+//    public void setStoryList(List<Story> storyList) {
+//        this.storyList = storyList;
+//    }
     
 }

@@ -3,6 +3,7 @@ package pol.una.py.gestprois2_frontend;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,6 +65,14 @@ public class SprintActivity extends AppCompatActivity {
         RequestQueue rQueue = Volley.newRequestQueue(SprintActivity.this);
         rQueue.add(request);
 
+        FloatingActionButton fab = findViewById(R.id.newSprint);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SprintActivity.this, SprintDetailActivity.class));
+            }
+        });
+
     }
 
     private class SprintListResponse extends AsyncTask<Void, Void, Void>{
@@ -119,7 +128,6 @@ public class SprintActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     SprintModel s = (SprintModel) adapterView.getItemAtPosition(i);
-                    System.out.println(s.toString());
                     Intent intent = new Intent(SprintActivity.this, StoryActivity.class);
                     intent.putExtra("sprintId", s.getSprintId());
                     startActivity(intent);

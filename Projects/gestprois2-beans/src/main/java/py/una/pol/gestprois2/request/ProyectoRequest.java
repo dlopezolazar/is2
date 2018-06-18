@@ -15,17 +15,24 @@ public class ProyectoRequest {
     
     private Integer idProyecto;
     private String nombre;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private String fechaInicio;
+    private String fechaFin;
 
     public Integer getIdProyecto() {
         return idProyecto;
     }
 
+    public ProyectoRequest(Integer idProyecto, String nombre, String fechaInicio, String fechaFin) {
+        this.idProyecto = idProyecto;
+        this.nombre = nombre;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
+
     public void setIdProyecto(Integer idProyecto) {
         this.idProyecto = idProyecto;
     }
-
+    
     public String getNombre() {
         return nombre;
     }
@@ -34,19 +41,19 @@ public class ProyectoRequest {
         this.nombre = nombre;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public String getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
 
