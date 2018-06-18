@@ -6,6 +6,8 @@
 package py.una.pol.gestprois2.controller;
 
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -68,33 +70,6 @@ public class ProyectoController {
        
     }
     
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response saveProject(ProyectoRequest project){
-        
-        try {
-            
-            if(project.getIdProyecto() != null){
-                return Response.status(Response.Status.FORBIDDEN).build();
-            }
-
-            Proyecto p = new Proyecto();
-            p.setNombre(project.getNombre());
-            p.setFechaInicio(project.getFechaInicio());
-            p.setFechaFin(project.getFechaFin());
-
-            proyectoFacade.create(p);
-            
-            return Response.created(URI.create("")).build();
-            
-        } catch (Exception e) {
-            LOGGER.error(e);
-            return Response.serverError().build();
-        }
-        
-    }
-    
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -113,7 +88,27 @@ public class ProyectoController {
 
             proyectoFacade.edit(p);
             
-            return Response.created(URI.create("")).build();
+            return Response.ok().build();
+            
+        } catch (Exception e) {
+            LOGGER.error(e);
+            return Response.serverError().build();
+        }
+    }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createProject(Proyecto project){
+        
+        try {
+            if(project.getIdProyecto() != null){
+                return Response.status(Response.Status.FORBIDDEN).build();
+            }
+
+            proyectoFacade.create(project);
+            
+            return Response.created(null).build();
             
         } catch (Exception e) {
             LOGGER.error(e);

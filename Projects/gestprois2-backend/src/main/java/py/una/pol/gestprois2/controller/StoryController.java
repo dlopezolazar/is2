@@ -83,7 +83,8 @@ public class StoryController {
                     new UserModel(
                             item.getIdUsuario().getIdUsuario(),
                             item.getIdUsuario().getCorreo(),
-                            item.getIdUsuario().getNombreCompleto())));
+                            item.getIdUsuario().getNombreCompleto(),
+                            item.getIdUsuario().getUid())));
         }
         return Response.ok(listModel).build();
     }
