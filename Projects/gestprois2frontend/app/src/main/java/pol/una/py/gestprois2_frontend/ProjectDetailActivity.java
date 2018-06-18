@@ -23,58 +23,40 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class UserDetailActivity extends AppCompatActivity {
+public class ProjectDetailActivity extends AppCompatActivity {
 
-    //private static final String USUARIO = "http://192.168.0.112:8080/gestprois2-backend/api/usuario";
-    private static final String USUARIO = "http://192.168.1.4:8080/gestprois2-backend/api/usuario";
+    private static final String PROJECT = "http://192.168.1.4:8080/gestprois2-backend/api/proyecto";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_detail);
+        setContentView(R.layout.activity_project_detail);
 
-        ((TextView)findViewById(R.id.edNombreProyecto)).setText(getIntent().getStringExtra("email"));
-        ((TextView)findViewById(R.id.edFullName)).setText(getIntent().getStringExtra("name"));
-        ((TextView)findViewById(R.id.edState)).setText(getIntent().getStringExtra("uid"));
-
-        FloatingActionButton buttonSave = findViewById(R.id.faGuardar);
+        FloatingActionButton buttonSave = findViewById(R.id.fabSaveProject);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * Metodo por defecto POST, caso contrario hacemos un PUT.
-                 */
-                int requestMethod = Request.Method.POST;
-                final Integer userId;
-                if(getIntent().getStringExtra("id")!= null){
-                    userId = Integer.parseInt(getIntent().getStringExtra("id"));
-                    requestMethod = Request.Method.PUT;
-                } else{
-                    userId = null;
-                }
-
                 JSONObject body = new JSONObject();
                 try {
-                    body.put("nombreCompleto", ((TextView) findViewById(R.id.edFullName)).getText().toString());
-                    body.put("correo", ((TextView) findViewById(R.id.edNombreProyecto)).getText().toString());
-                    body.put("uid", ((TextView) findViewById(R.id.edState)).getText().toString());
-                    body.put("idUsuario", userId != null? userId.toString():null);
+                    body.put("nombre", ((TextView) findViewById(R.id.edNombreProyecto)).getText().toString());
+                    body.put("fechaInicio", ((TextView) findViewById(R.id.edFechaInicio)).getText().toString());
+                    body.put("fechaFin", ((TextView) findViewById(R.id.edFechaFin)).getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 final String requestBody = body.toString();
 
-                StringRequest request = new StringRequest(requestMethod, USUARIO, new Response.Listener<String>() {
+                StringRequest request = new StringRequest(Request.Method.POST, PROJECT, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        
-                        startActivity(new Intent(UserDetailActivity.this, UserActivity.class));
+
+                        startActivity(new Intent(ProjectDetailActivity.this, ProjectActivity.class));
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(UserDetailActivity.this, "Some error occurred -> " + error,
+                        Toast.makeText(ProjectDetailActivity.this, "Some error occurred -> " + error,
                                 Toast.LENGTH_LONG).show();
                         Log.e("VOLLEY", error.getStackTrace().toString());
                     }
@@ -95,7 +77,7 @@ public class UserDetailActivity extends AppCompatActivity {
                     }
                 };
 
-                RequestQueue rQueue = Volley.newRequestQueue(UserDetailActivity.this);
+                RequestQueue rQueue = Volley.newRequestQueue(ProjectDetailActivity.this);
                 rQueue.add(request);
             }
         });

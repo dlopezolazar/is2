@@ -50,11 +50,10 @@ public class StoryListViewAdapter extends BaseAdapter{
             LayoutInflater layoutInfiater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             view = layoutInfiater.inflate(R.layout.story_items, null);
 
-            viewStoryItem.projectName = view.findViewById(R.id.nameProject);
             viewStoryItem.sprintName = view.findViewById(R.id.nameSprint);
-            viewStoryItem.taskName = view.findViewById(R.id.userName);
+            viewStoryItem.taskName = view.findViewById(R.id.nameTask);
             viewStoryItem.taskState = view.findViewById(R.id.state);
-            viewStoryItem.userName = view.findViewById(R.id.state);
+            viewStoryItem.userName = view.findViewById(R.id.userName);
 
             view.setTag(viewStoryItem);
         }
@@ -62,17 +61,15 @@ public class StoryListViewAdapter extends BaseAdapter{
             viewStoryItem = (ViewStoryItem) view.getTag();
         }
 
-        viewStoryItem.projectName.setText("Project");
         viewStoryItem.sprintName.setText(listStory.get(i).getSprint().getSprintDescription());
         viewStoryItem.taskName.setText(listStory.get(i).getTaskDescription());
         viewStoryItem.taskState.setText(listStory.get(i).getState());
-        viewStoryItem.userName.setText(listStory.get(i).getUser().getFullName());
+        viewStoryItem.userName.setText(listStory.get(i).getUser().getUid());
 
         return view;
     }
 
     class ViewStoryItem{
-        TextView projectName;
         TextView sprintName;
         TextView taskName;
         TextView taskState;

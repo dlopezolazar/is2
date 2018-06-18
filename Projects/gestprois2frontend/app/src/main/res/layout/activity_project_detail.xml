@@ -4,82 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pol.una.py.gestprois2_frontend.UserDetailActivity">
+    tools:context="pol.una.py.gestprois2_frontend.ProjectDetailActivity">
 
     <TextView
         android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Nuevo Usuario"
-        app:layout_constraintHorizontal_bias="0.945"
+        android:layout_marginTop="32dp"
+        android:text="Nuevo Proyecto"
+        app:layout_constraintHorizontal_bias="0.901"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
-        android:id="@+id/edFullName"
+        android:id="@+id/edFechaInicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
-        android:hint="Nombre(s)"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/edState"
+        android:hint="Fecha Inicio"
+        android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitulo"
-        app:layout_constraintVertical_bias="0.564"
-        app:layout_constraintVertical_chainStyle="spread" />
+        app:layout_constraintTop_toBottomOf="@+id/edNombreProyecto"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/edFechaFin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:hint="Fecha Fin"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edFechaInicio"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/edNombreProyecto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="76dp"
         android:ems="10"
-        android:hint="e-mail"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/faGuardar"
+        android:hint="Nombre"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo"
         tools:ignore="MissingConstraints" />
 
-    <EditText
-        android:id="@+id/edState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="Nombre usuario"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/edNombreProyecto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/faGuardar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:id="@+id/fabSaveProject"
+        android:layout_width="62dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="8dp"
         android:clickable="true"
-        app:backgroundTint="@android:color/black"
+        app:backgroundTint="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.918"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_save" />
+        app:layout_constraintTop_toBottomOf="@+id/edFechaFin"
+        app:layout_constraintVertical_bias="0.776"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        android:layout_marginRight="48dp" />
+
 
 </android.support.constraint.ConstraintLayout>

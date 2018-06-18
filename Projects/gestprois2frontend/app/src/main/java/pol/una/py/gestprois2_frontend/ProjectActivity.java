@@ -3,6 +3,7 @@ package pol.una.py.gestprois2_frontend;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,6 +61,14 @@ public class ProjectActivity extends AppCompatActivity {
 
         RequestQueue rQueue = Volley.newRequestQueue(ProjectActivity.this);
         rQueue.add(request);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.newProject);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProjectActivity.this, ProjectDetailActivity.class));
+            }
+        });
     }
 
     private class ProjectListResponse extends AsyncTask<Void, Void, Void>{
