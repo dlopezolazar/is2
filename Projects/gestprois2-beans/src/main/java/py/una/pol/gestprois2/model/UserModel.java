@@ -14,14 +14,16 @@ public class UserModel {
     private Integer idUsuario;
     private String correo;
     private String nombreCompleto;
+    private String uid;
 
     public UserModel() {
     }
 
-    public UserModel(Integer idUsuario, String correo, String nombreCompleto) {
+    public UserModel(Integer idUsuario, String correo, String nombreCompleto, String uid) {
         this.idUsuario = idUsuario;
         this.correo = correo;
         this.nombreCompleto = nombreCompleto;
+        this.uid = uid;
     }
 
     public Integer getIdUsuario() {
@@ -48,11 +50,17 @@ public class UserModel {
         this.nombreCompleto = nombreCompleto;
     }
 
-    @Override
-    public String toString() {
-        return "UserModel{" + "correo=" + correo + ", nombreCompleto=" + nombreCompleto + '}';
+    public String getUid() {
+        return uid;
     }
 
-   
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    @Override
+    public String toString() {
+        return "UserModel{" + "idUsuario=" + idUsuario + ", correo=" + correo + ", nombreCompleto=" + nombreCompleto + ", uid=" + uid + '}';
+    }
     
 }

@@ -14,11 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -27,29 +24,20 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "backlog")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Backlog.findAll", query = "SELECT b FROM Backlog b"),
-    @NamedQuery(name = "Backlog.findByIdBacklog", query = "SELECT b FROM Backlog b WHERE b.idBacklog = :idBacklog"),
-    @NamedQuery(name = "Backlog.findByDescripcion", query = "SELECT b FROM Backlog b WHERE b.descripcion = :descripcion")})
 public class Backlog implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
-    @javax.validation.constraints.Size(min = 1, max = 2147483647)
     @Column(name = "id_backlog")
     private String idBacklog;
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
-    @javax.validation.constraints.Size(min = 1, max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
     @JoinColumn(name = "id_proyecto", referencedColumnName = "id_proyecto")
     @ManyToOne(optional = false)
     private Proyecto idProyecto;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBacklog")
-    private List<Requerimiento> requerimientoList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBacklog")
+//    private List<Requerimiento> requerimientoList;
 
     public Backlog() {
     }
@@ -87,14 +75,14 @@ public class Backlog implements Serializable {
         this.idProyecto = idProyecto;
     }
 
-    @XmlTransient
-    public List<Requerimiento> getRequerimientoList() {
-        return requerimientoList;
-    }
-
-    public void setRequerimientoList(List<Requerimiento> requerimientoList) {
-        this.requerimientoList = requerimientoList;
-    }
+//    @XmlTransient
+//    public List<Requerimiento> getRequerimientoList() {
+//        return requerimientoList;
+//    }
+//
+//    public void setRequerimientoList(List<Requerimiento> requerimientoList) {
+//        this.requerimientoList = requerimientoList;
+//    }
 
     @Override
     public int hashCode() {

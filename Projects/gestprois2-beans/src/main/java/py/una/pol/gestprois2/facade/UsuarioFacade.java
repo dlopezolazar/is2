@@ -52,4 +52,18 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         }
         
     }
+    
+    public Usuario findUserByUid(String uid){
+        Query query = em.
+                createQuery("SELECT U FROM Usuario U "
+                        + "WHERE U.uid = :uid");
+        query.setParameter("uid", uid);
+        
+        Usuario u = null;
+        if(query.getMaxResults() >= 1){
+            u = (Usuario) query.getSingleResult();
+        }
+
+        return u;
+    }
 }
