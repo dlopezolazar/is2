@@ -35,8 +35,8 @@ import pol.una.py.gestprois2_frontend.model.UserModel;
 
 public class StoryActivity extends AppCompatActivity {
 
-    //private static final String STORY = "http://192.168.1.61:8080/gestprois2-backend/api/sprint";
-    private static final String STORY = "http://192.168.0.112:8080/gestprois2-backend/api/story";
+    private static final String STORY = "http://192.168.1.4:8080/gestprois2-backend/api/story";
+    //private static final String STORY = "http://192.168.0.112:8080/gestprois2-backend/api/story";
 
     ListView listView;
     String jsonObjectResponse ;
@@ -96,10 +96,8 @@ public class StoryActivity extends AppCompatActivity {
                         jsonArray = new JSONArray(jsonObjectResponse);
                         JSONObject jsonObject = null;
                         JSONObject jsonSprint = null;
-                        JSONObject jsonProject = null;
                         JSONObject jsonUSer = null;
                         StoryModel storyModel;
-                        SprintModel sprintModel;
                         listStory = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             storyModel = new StoryModel();
@@ -115,18 +113,12 @@ public class StoryActivity extends AppCompatActivity {
                                     jsonSprint.getString("fechaFin"),
                                     ""
                             ));
-                            /*jsonProject = jsonObject.getJSONObject("proyecto");
-                            storyModel.setProject(new ProjectModel(
-                                    jsonObject.getString("idProyecto"),
-                                    jsonObject.getString("nombre"),
-                                    jsonObject.getString("fechaInicio"),
-                                    jsonObject.getString("fechaFin")
-                            ));*/
                             jsonUSer = jsonObject.getJSONObject("usuario");
                             storyModel.setUser(new UserModel(
                                     jsonUSer.getInt("idUsuario"),
                                     jsonUSer.getString("correo"),
-                                    jsonUSer.getString("nombreCompleto")
+                                    jsonUSer.getString("nombreCompleto"),
+                                    jsonUSer.getString("uid")
                             ));
 
                             listStory.add(storyModel);
@@ -153,8 +145,11 @@ public class StoryActivity extends AppCompatActivity {
                     StoryModel sm = (StoryModel) adapterView.getItemAtPosition(i);
                     Intent intent = new Intent(StoryActivity.this, StoryDetailActivity.class);
                     intent.putExtra("taskDescription", sm.getTaskDescription());
-                    intent.putExtra("userName", sm.getUser().getFullName());
+                    intent.putExtra("userName", sm.getUser().getUid());
                     intent.putExtra("state", sm.getState());
+                    intent.putExtra("sprintId", sm.getSprint().getSprintId().toString());
+                    intent.putExtra("userId", sm.getUser().getUserId().toString());
+                    intent.putExtra("id", sm.getIdTask().toString());
                     startActivity(intent);
                 }
             });
@@ -175,6 +170,8 @@ public class StoryActivity extends AppCompatActivity {
                                     StringRequest request = new StringRequest(Request.Method.DELETE, deleteEndpoint, new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
+                                            finish();
+                                            startActivity(getIntent());
                                             Log.d("Deleted Story: ", response.toString());
                                         }
                                     }, new Response.ErrorListener() {
@@ -185,6 +182,9 @@ public class StoryActivity extends AppCompatActivity {
                                             Log.e("VOLLEY", error.getStackTrace().toString());
                                         }
                                     });
+
+                                    RequestQueue rQueue = Volley.newRequestQueue(StoryActivity.this);
+                                    rQueue.add(request);
 
                                     dialog.dismiss();
                                 }

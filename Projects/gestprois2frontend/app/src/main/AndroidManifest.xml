@@ -42,7 +42,12 @@
         <activity android:name=".UserDetailActivity" />
         <activity android:name=".SprintActivity" />
         <activity android:name=".StoryActivity" />
-        <activity android:name=".StoryDetailActivity"></activity>
+        <activity android:name=".StoryDetailActivity" />
+        <activity
+            android:name=".ProjectDetailActivity"
+            android:label="@string/title_activity_project_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SprintDetailActivity"></activity>
     </application>
 
 </manifest>

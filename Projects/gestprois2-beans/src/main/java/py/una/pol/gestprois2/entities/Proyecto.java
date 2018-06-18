@@ -8,20 +8,16 @@ package py.una.pol.gestprois2.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -49,17 +45,16 @@ public class Proyecto implements Serializable {
     @Basic(optional = false)
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date fechaFin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
-    @JsonIgnore
-    private List<Backlog> backlogList;
-    @OneToMany(mappedBy = "proyecto")
-    @JsonIgnore
-    private List<UsuarioRol> usuarioRolList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
-    @JsonIgnore
-    private List<Sprint> sprintList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
+//    @JsonIgnore
+//    private List<Backlog> backlogList;
+//    @OneToMany(mappedBy = "proyecto")
+//    @JsonIgnore
+//    private List<UsuarioRol> usuarioRolList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProyecto")
+//    @JsonIgnore
+//    private List<Sprint> sprintList;
 
     public Proyecto() {
     }
@@ -130,29 +125,29 @@ public class Proyecto implements Serializable {
     }
     
 
-    public List<Backlog> getBacklogList() {
-        return backlogList;
-    }
-
-    public void setBacklogList(List<Backlog> backlogList) {
-        this.backlogList = backlogList;
-    }
-
-    public List<UsuarioRol> getUsuarioRolList() {
-        return usuarioRolList;
-    }
-
-    public void setUsuarioRolList(List<UsuarioRol> usuarioRolList) {
-        this.usuarioRolList = usuarioRolList;
-    }
-
-    public List<Sprint> getSprintList() {
-        return sprintList;
-    }
-
-    public void setSprintList(List<Sprint> sprintList) {
-        this.sprintList = sprintList;
-    }
+//    public List<Backlog> getBacklogList() {
+//        return backlogList;
+//    }
+//
+//    public void setBacklogList(List<Backlog> backlogList) {
+//        this.backlogList = backlogList;
+//    }
+//
+//    public List<UsuarioRol> getUsuarioRolList() {
+//        return usuarioRolList;
+//    }
+//
+//    public void setUsuarioRolList(List<UsuarioRol> usuarioRolList) {
+//        this.usuarioRolList = usuarioRolList;
+//    }
+//
+//    public List<Sprint> getSprintList() {
+//        return sprintList;
+//    }
+//
+//    public void setSprintList(List<Sprint> sprintList) {
+//        this.sprintList = sprintList;
+//    }
     
 
     @Override

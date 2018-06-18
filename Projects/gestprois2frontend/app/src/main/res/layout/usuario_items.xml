@@ -6,9 +6,9 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/correo"
+        android:layout_width="196dp"
+        android:layout_height="0dp"
         android:layout_marginTop="40dp"
         android:text="Correo"
         android:textColor="#000"
@@ -17,13 +17,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textviewID"
+        android:id="@+id/fullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="40dp"
-        android:layout_toEndOf="@+id/text1"
-        android:layout_toRightOf="@+id/text1"
+        android:layout_toEndOf="@+id/correo"
+        android:layout_toRightOf="@+id/correo"
         android:text="Nombre Completo"
         android:textColor="#000"
         android:textSize="22dp"
@@ -31,15 +31,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textviewSubjectName"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_below="@+id/textviewID"
+        android:id="@+id/uid"
+        android:layout_width="144dp"
+        android:layout_height="26dp"
+        android:layout_below="@+id/fullName"
         android:layout_marginBottom="40dp"
         android:text="User"
         android:textColor="#2196F3"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/text1"
-        app:layout_constraintStart_toStartOf="@+id/text1" />
+        app:layout_constraintBottom_toBottomOf="@+id/correo"
+        app:layout_constraintStart_toStartOf="@+id/correo" />
 
 </android.support.constraint.ConstraintLayout>

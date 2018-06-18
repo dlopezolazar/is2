@@ -83,7 +83,8 @@ public class StoryController {
                     new UserModel(
                             item.getIdUsuario().getIdUsuario(),
                             item.getIdUsuario().getCorreo(),
-                            item.getIdUsuario().getNombreCompleto())));
+                            item.getIdUsuario().getNombreCompleto(),
+                            item.getIdUsuario().getUid())));
         }
         return Response.ok(listModel).build();
     }
@@ -149,6 +150,7 @@ public class StoryController {
             }
             
             Story s = new Story();
+            s.setIdTarea(st.getStoryId());
             s.setDescripcion(st.getDescripcion());
             s.setEstado(st.getEstado());
             Sprint sp = sprint.find(st.getSprintId());

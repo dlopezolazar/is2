@@ -23,26 +23,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "requerimiento")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Requerimiento.findAll", query = "SELECT r FROM Requerimiento r"),
-    @NamedQuery(name = "Requerimiento.findByIdRequerimiento", query = "SELECT r FROM Requerimiento r WHERE r.idRequerimiento = :idRequerimiento"),
-    @NamedQuery(name = "Requerimiento.findByDescripcion", query = "SELECT r FROM Requerimiento r WHERE r.descripcion = :descripcion")})
 public class Requerimiento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
     @Column(name = "id_requerimiento")
     private Integer idRequerimiento;
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
-    @javax.validation.constraints.Size(min = 1, max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
-    @JoinColumn(name = "id_backlog", referencedColumnName = "id_backlog")
-    @ManyToOne(optional = false)
-    private Backlog idBacklog;
+//    @JoinColumn(name = "id_backlog", referencedColumnName = "id_backlog")
+//    @ManyToOne(optional = false)
+//    private Backlog idBacklog;
 
     public Requerimiento() {
     }
@@ -72,13 +64,13 @@ public class Requerimiento implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Backlog getIdBacklog() {
-        return idBacklog;
-    }
-
-    public void setIdBacklog(Backlog idBacklog) {
-        this.idBacklog = idBacklog;
-    }
+//    public Backlog getIdBacklog() {
+//        return idBacklog;
+//    }
+//
+//    public void setIdBacklog(Backlog idBacklog) {
+//        this.idBacklog = idBacklog;
+//    }
 
     @Override
     public int hashCode() {

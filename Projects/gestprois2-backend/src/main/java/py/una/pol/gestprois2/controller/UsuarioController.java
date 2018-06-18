@@ -74,9 +74,10 @@ public class UsuarioController{
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response saveUser(Usuario usu){
+    public Response saveUser(Usuario body){
         try {
-            usuario.create(usu);
+//            Usuario usu = new Usuario(null, body.getCorreo(), body.getNombreCompleto(), body.getUserId(), "");
+            usuario.create(body);
             return Response.created(URI.create("")).build();
         } catch (Exception e) {
             LOGGER.error(e);
