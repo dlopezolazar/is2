@@ -1,9 +1,9 @@
 package pol.una.py.gestprois2_frontend;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -22,59 +22,55 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 
-public class StoryDetailActivity extends AppCompatActivity {
+public class RolDetailActivity extends AppCompatActivity {
 
-    private static final String STORY = "http://192.168.1.2:8080/gestprois2-backend/api/story";
-    //private static final String STORY = "http://192.168.1.112:8080/gestprois2-backend/api/story";
+    //private static final String ROL = "http://192.168.0.112:8080/gestprois2-backend/api/rol";
+    private static final String ROL = "http://192.168.1.2:8080/gestprois2-backend/api/rol";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_story_detail);
+        setContentView(R.layout.activity_rol_detail);
 
-        ((TextView)findViewById(R.id.edTaskDescription)).setText(getIntent().getStringExtra("taskDescription"));
-        ((TextView)findViewById(R.id.edUser)).setText(getIntent().getStringExtra("userName"));
-        ((TextView)findViewById(R.id.edState)).setText(getIntent().getStringExtra("state"));
-        ((TextView)findViewById(R.id.txtFecha)).setText(new Date().toString());
+        ((TextView)findViewById(R.id.edDescription)).setText(getIntent().getStringExtra("descripcion"));
 
         FloatingActionButton buttonSave = findViewById(R.id.faGuardar);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * Metodo por defecto POST, caso contrario hacemos un PUT.
+                 */
                 int requestMethod = Request.Method.POST;
-                final Integer idTask;
+                final Integer rolId;
                 if(getIntent().getStringExtra("id")!= null){
-                    idTask = Integer.parseInt(getIntent().getStringExtra("id"));
+                    rolId = Integer.parseInt(getIntent().getStringExtra("id"));
                     requestMethod = Request.Method.PUT;
                 } else{
-                    idTask = null;
+                    rolId = null;
                 }
 
                 JSONObject body = new JSONObject();
                 try {
-                    body.put("descripcion", ((TextView) findViewById(R.id.edTaskDescription)).getText().toString());
-                    body.put("estado", ((TextView) findViewById(R.id.edState)).getText().toString());
-                    body.put("sprintId", (getIntent().getStringExtra("sprintId")));
-                    body.put("idUsuario", ((TextView) findViewById(R.id.edUser)).getText().toString());
-                    body.put("storyId", idTask != null? idTask.toString():null);
+                    body.put("descripcion", ((TextView) findViewById(R.id.edDescription)).getText().toString());
+                    body.put("idRol", rolId != null? rolId.toString():null);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 final String requestBody = body.toString();
 
-                StringRequest request = new StringRequest(requestMethod, STORY, new Response.Listener<String>() {
+                StringRequest request = new StringRequest(requestMethod, ROL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
-                        startActivity(new Intent(StoryDetailActivity.this, UserActivity.class));
+                        startActivity(new Intent(RolDetailActivity.this, RolActivity.class));
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(StoryDetailActivity.this, "Some error occurred -> " + error,
+                        Toast.makeText(RolDetailActivity.this, "Some error occurred -> " + error,
                                 Toast.LENGTH_LONG).show();
                         Log.e("VOLLEY", error.getStackTrace().toString());
                     }
@@ -95,7 +91,7 @@ public class StoryDetailActivity extends AppCompatActivity {
                     }
                 };
 
-                RequestQueue rQueue = Volley.newRequestQueue(StoryDetailActivity.this);
+                RequestQueue rQueue = Volley.newRequestQueue(RolDetailActivity.this);
                 rQueue.add(request);
             }
         });

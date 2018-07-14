@@ -35,7 +35,7 @@ import pol.una.py.gestprois2_frontend.model.UserModel;
 
 public class StoryActivity extends AppCompatActivity {
 
-    private static final String STORY = "http://192.168.1.4:8080/gestprois2-backend/api/story";
+    private static final String STORY = "http://192.168.1.2:8080/gestprois2-backend/api/story";
     //private static final String STORY = "http://192.168.0.112:8080/gestprois2-backend/api/story";
 
     ListView listView;

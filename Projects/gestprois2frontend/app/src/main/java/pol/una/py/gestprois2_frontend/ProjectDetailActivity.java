@@ -25,7 +25,8 @@ import java.io.UnsupportedEncodingException;
 
 public class ProjectDetailActivity extends AppCompatActivity {
 
-    private static final String PROJECT = "http://192.168.1.4:8080/gestprois2-backend/api/proyecto";
+    private static final String PROJECT = "http://192.168.1.2:8080/gestprois2-backend/api/proyecto";
+    //private static final String PROJECT = "http://192.168.1.112:8080/gestprois2-backend/api/proyecto";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

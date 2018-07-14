@@ -16,8 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--
-        activity
+        <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
@@ -25,9 +24,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity
-        -->
-        <activity
+        </activity>
+
+        <!--activity
             android:name=".HomeActivity"
             android:label="@string/app_name">
             <intent-filter>
@@ -35,14 +34,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- activity android:name=".HomeActivity" / -->
+        </activity-->
+        <activity android:name=".HomeActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".ProjectActivity" />
         <activity android:name=".UserDetailActivity" />
         <activity android:name=".SprintActivity" />
         <activity android:name=".StoryActivity" />
         <activity android:name=".StoryDetailActivity" />
+        <activity android:name=".RolDetailActivity" />
+        <activity android:name=".RolActivity"></activity>
         <activity
             android:name=".ProjectDetailActivity"
             android:label="@string/title_activity_project_detail"

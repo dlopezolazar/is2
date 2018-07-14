@@ -14,17 +14,23 @@ import pol.una.py.gestprois2_frontend.R;
 import pol.una.py.gestprois2_frontend.model.RolModel;
 
 public class RolListViewAdapter extends BaseAdapter{
+
     Context context;
-    List<RolModel> rolist;
+    List<RolModel> tempList;
+
+    public RolListViewAdapter(List<RolModel> listValue, Context context){
+        this.context = context;
+        this.tempList = listValue;
+    }
 
     @Override
     public int getCount(){
-        return this.rolist.size();
+        return this.tempList.size();
     }
 
     @Override
     public Object getItem(int position){
-        return this.rolist.get(position);
+        return this.tempList.get(position);
     }
 
     @Override
@@ -42,8 +48,8 @@ public class RolListViewAdapter extends BaseAdapter{
             LayoutInflater layoutInflater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.rol_items, null);
 
-            viewItem.IdTextView = (TextView)convertView.findViewById(R.id.id_rol);
-            viewItem.DescripcionTextView = (TextView)convertView.findViewById(R.id.rol_descripcion);
+            viewItem.IdTextView = (TextView)convertView.findViewById(R.id.rolId);
+            viewItem.DescripcionTextView = (TextView)convertView.findViewById(R.id.rolDescription);
 
             convertView.setTag(viewItem);
         }
@@ -51,8 +57,8 @@ public class RolListViewAdapter extends BaseAdapter{
             viewItem = (ViewRolItem) convertView.getTag();
         }
 
-        viewItem.IdTextView.setText(rolist.get(position).getId_rol());
-        viewItem.DescripcionTextView.setText(rolist.get(position).getRol_Descripcion());
+        viewItem.IdTextView.setText(tempList.get(position).getIdRol().toString());
+        viewItem.DescripcionTextView.setText(tempList.get(position).getRolDescription());
 
         return convertView;
     }

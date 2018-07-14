@@ -25,25 +25,17 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "rol")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
-    @NamedQuery(name = "Rol.findByIdRol", query = "SELECT r FROM Rol r WHERE r.idRol = :idRol"),
-    @NamedQuery(name = "Rol.findByRolDescripcion", query = "SELECT r FROM Rol r WHERE r.rolDescripcion = :rolDescripcion")})
 public class Rol implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
     @Column(name = "id_rol")
     private Integer idRol;
     @Basic(optional = false)
-    @javax.validation.constraints.NotNull
-    @javax.validation.constraints.Size(min = 1, max = 2147483647)
     @Column(name = "rol_descripcion")
     private String rolDescripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRol")
-    private List<UsuarioRol> usuarioRolList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRol")
+//    private List<UsuarioRol> usuarioRolList;
 
     public Rol() {
     }
@@ -73,14 +65,14 @@ public class Rol implements Serializable {
         this.rolDescripcion = rolDescripcion;
     }
 
-    @XmlTransient
-    public List<UsuarioRol> getUsuarioRolList() {
-        return usuarioRolList;
-    }
-
-    public void setUsuarioRolList(List<UsuarioRol> usuarioRolList) {
-        this.usuarioRolList = usuarioRolList;
-    }
+//    @XmlTransient
+//    public List<UsuarioRol> getUsuarioRolList() {
+//        return usuarioRolList;
+//    }
+//
+//    public void setUsuarioRolList(List<UsuarioRol> usuarioRolList) {
+//        this.usuarioRolList = usuarioRolList;
+//    }
 
     @Override
     public int hashCode() {

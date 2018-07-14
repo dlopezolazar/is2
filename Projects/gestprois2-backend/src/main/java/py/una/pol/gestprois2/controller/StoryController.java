@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 import py.una.pol.gestprois2.entities.Sprint;
 import py.una.pol.gestprois2.entities.Story;
+import py.una.pol.gestprois2.entities.Usuario;
 import py.una.pol.gestprois2.facade.SprintFacade;
 import py.una.pol.gestprois2.facade.StoryFacade;
 import py.una.pol.gestprois2.facade.UsuarioFacade;
@@ -52,6 +53,7 @@ public class StoryController {
     
     private static final String STORY_ALL = "/{sprintId}";
     private static final String STORY     = "/{sprintId}/{storyId}";
+    private static final String STORY_USER     = "/user/{userId}";
     
     @GET
     @Path(STORY_ALL)
@@ -109,6 +111,27 @@ public class StoryController {
         return Response.ok(st).build();
     }
     
+    
+    @GET
+    @Path(STORY_USER)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStoryPerUser(@PathParam("userId") Integer userId){
+        
+        Usuario u = usuario.find(userId);
+        if(u == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        
+        List<Story> st = story.findAllStoryByUser(u);
+        
+        if(st.isEmpty()){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        
+        return Response.ok(st).build();
+    }
+ 
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -159,7 +182,8 @@ public class StoryController {
             }
             s.setSprintId(sp);
             
-            s.setIdUsuario(usuarioRol.findUserInProject(sp.getIdProyecto(), usuario.find(st.getIdUsuario())));
+            s.setIdUsuario(usuario.find(st.getIdUsuario()));
+//            s.setIdUsuario(usuarioRol.findUserInProject(sp.getIdProyecto(), usuario.find(st.getIdUsuario())));
 
             story.edit(s);
             

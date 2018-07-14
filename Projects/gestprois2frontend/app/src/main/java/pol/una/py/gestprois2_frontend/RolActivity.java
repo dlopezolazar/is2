@@ -28,14 +28,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import pol.una.py.gestprois2_frontend.adapter.UserListViewAdapter;
-import pol.una.py.gestprois2_frontend.model.UserModel;
+import pol.una.py.gestprois2_frontend.adapter.RolListViewAdapter;
+import pol.una.py.gestprois2_frontend.model.RolModel;
 
-public class UserActivity extends AppCompatActivity {
+public class RolActivity extends AppCompatActivity {
 
-
-    private static final String USUARIO = "http://192.168.1.2:8080/gestprois2-backend/api/usuario";
-    //private static final String USUARIO = "http://192.168.0.112:8080/gestprois2-backend/api/usuario";
+    private static final String ROL = "http://192.168.1.2:8080/gestprois2-backend/api/rol";
+    //private static final String ROL = "http://192.168.0.112:8080/gestprois2-backend/api/rol";
 
     ListView listView;
     String jsonObjectResponse ;
@@ -43,33 +42,33 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_usuario);
+        setContentView(R.layout.activity_rol);
 
-        listView = findViewById(R.id.userListView);
-        StringRequest request = new StringRequest(Request.Method.GET, USUARIO, new Response.Listener<String>() {
+        listView = findViewById(R.id.rolListView);
+        StringRequest request = new StringRequest(Request.Method.GET, ROL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 jsonObjectResponse = response;
-                new UserListResponse(UserActivity.this).execute();
+                new RolActivity.RolListResponse(RolActivity.this).execute();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(UserActivity.this, "Some error occurred -> " + error,
+                Toast.makeText(RolActivity.this, "Some error occurred -> " + error,
                         Toast.LENGTH_LONG).show();
                 Log.e("VOLLEY", error.getStackTrace().toString());
             }
         });
 
-        RequestQueue rQueue = Volley.newRequestQueue(UserActivity.this);
+        RequestQueue rQueue = Volley.newRequestQueue(RolActivity.this);
         rQueue.add(request);
 
-        //Al dar click sobre el button + se desplega la vista para crear nuevo usuario
-        FloatingActionButton buttonNew = findViewById(R.id.butonNew);
+        //Al dar click sobre el button + se desplega la vista para crear nuevo rol
+        FloatingActionButton buttonNew = findViewById(R.id.butonNewRol);
         buttonNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserActivity.this, UserDetailActivity.class));
+                startActivity(new Intent(RolActivity.this, RolDetailActivity.class));
             }
         });
 
@@ -83,14 +82,14 @@ public class UserActivity extends AppCompatActivity {
 
     }
 
-    private class UserListResponse extends AsyncTask<Void, Void, Void> {
+    private class RolListResponse extends AsyncTask<Void, Void, Void> {
 
         public Context context;
 
         // Creating List of Subject class.
-        List<UserModel> customList;
+        List<RolModel> customList;
 
-        public UserListResponse(Context context) {
+        public RolListResponse(Context context) {
             this.context = context;
         }
 
@@ -115,17 +114,15 @@ public class UserActivity extends AppCompatActivity {
                         // Creating JSON Object.
                         JSONObject jsonObject;
                         // Creating Subject class object.
-                        UserModel user;
+                        RolModel rol;
                         // Defining CustomSubjectNamesList AS Array List.
                         customList = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            user = new UserModel();
+                            rol = new RolModel();
                             jsonObject = jsonArray.getJSONObject(i);
-                            user.setUserId(jsonObject.getInt("idUsuario"));
-                            user.setEmail(jsonObject.getString("correo"));
-                            user.setFullName(jsonObject.getString("nombreCompleto"));
-                            user.setUid(jsonObject.getString("uid"));
-                            customList.add(user);
+                            rol.setIdRol(jsonObject.getInt("idRol"));
+                            rol.setRolDescription(jsonObject.getString("rolDescripcion"));
+                            customList.add(rol);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -140,7 +137,7 @@ public class UserActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result){
             // After all done loading set complete CustomSubjectNamesList with application context to ListView adapter.
-            UserListViewAdapter adapter = new UserListViewAdapter(customList, context);
+            RolListViewAdapter adapter = new RolListViewAdapter(customList, context);
             // Setting up all data into ListView.
             listView.setAdapter(adapter);
 
@@ -149,12 +146,10 @@ public class UserActivity extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    UserModel u = (UserModel) adapterView.getItemAtPosition(i);
-                    Intent intent = new Intent(UserActivity.this, UserDetailActivity.class);
-                    intent.putExtra("email", u.getEmail());
-                    intent.putExtra("name", u.getFullName());
-                    intent.putExtra("uid", u.getUid());
-                    intent.putExtra("id", u.getUserId().toString());
+                    RolModel u = (RolModel) adapterView.getItemAtPosition(i);
+                    Intent intent = new Intent(RolActivity.this, RolDetailActivity.class);
+                    intent.putExtra("descripcion", u.getRolDescription());
+                    intent.putExtra("id", u.getIdRol().toString());
                     startActivity(intent);
                 }
             });
@@ -166,9 +161,9 @@ public class UserActivity extends AppCompatActivity {
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
-                    UserModel um = (UserModel) parent.getItemAtPosition(position);
-                    final String deleteEndpoint = USUARIO+"/"+um.getUserId();
-                    AlertDialog.Builder myQuittingDialogBox =new AlertDialog.Builder(UserActivity.this)
+                    RolModel um = (RolModel) parent.getItemAtPosition(position);
+                    final String deleteEndpoint = ROL+"/"+um.getIdRol();
+                    AlertDialog.Builder myQuittingDialogBox =new AlertDialog.Builder(RolActivity.this)
                             //set message, title, and icon
                             .setTitle("Delete")
                             .setMessage("Esta seguro de eliminar?")
@@ -181,18 +176,18 @@ public class UserActivity extends AppCompatActivity {
                                         public void onResponse(String response) {
                                             finish();
                                             startActivity(getIntent());
-                                            Log.d("Deleted User: ", response.toString());
+                                            Log.d("Deleted Rol: ", response.toString());
                                         }
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(UserActivity.this, "Some error occurred -> " + error,
+                                            Toast.makeText(RolActivity.this, "Some error occurred -> " + error,
                                                     Toast.LENGTH_LONG).show();
                                             Log.e("VOLLEY", error.getStackTrace().toString());
                                         }
                                     });
 
-                                    RequestQueue rQueue = Volley.newRequestQueue(UserActivity.this);
+                                    RequestQueue rQueue = Volley.newRequestQueue(RolActivity.this);
                                     rQueue.add(request);
 
                                     dialog.dismiss();
@@ -215,5 +210,5 @@ public class UserActivity extends AppCompatActivity {
             // progressBar.setVisibility(View.GONE);
         }
     }
-
+    
 }

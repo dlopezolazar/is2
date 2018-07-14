@@ -31,12 +31,12 @@ public class UsuarioRol implements Serializable {
     @JoinColumn(name = "id_proyecto", referencedColumnName = "id_proyecto")
     @ManyToOne
     private Proyecto proyecto;
-    @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
-    @ManyToOne(optional = false)
-    private Rol idRol;
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-    @ManyToOne(optional = false)
-    private Usuario usuario;
+//    @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
+//    @ManyToOne(optional = false)
+//    private Rol idRol;
+//    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+//    @ManyToOne(optional = false)
+//    private Usuario usuario;
 
     public UsuarioRol() {
     }
@@ -61,21 +61,21 @@ public class UsuarioRol implements Serializable {
         this.proyecto = proyecto;
     }
 
-    public Rol getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(Rol idRol) {
-        this.idRol = idRol;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+//    public Rol getIdRol() {
+//        return idRol;
+//    }
+//
+//    public void setIdRol(Rol idRol) {
+//        this.idRol = idRol;
+//    }
+//
+//    public Usuario getUsuario() {
+//        return usuario;
+//    }
+//
+//    public void setUsuario(Usuario usuario) {
+//        this.usuario = usuario;
+//    }
 
     @Override
     public int hashCode() {
