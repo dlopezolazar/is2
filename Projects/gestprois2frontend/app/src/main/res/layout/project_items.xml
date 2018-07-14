@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/nameProject"
+        android:layout_width="0dp"
+        android:layout_height="23dp"
+        android:layout_marginEnd="152dp"
+        android:layout_marginStart="7dp"
+        android:text="NameProject"
+        app:layout_constraintEnd_toStartOf="@+id/state"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codProject"
+        android:layout_marginRight="152dp"
+        android:layout_marginLeft="7dp" />
+
+    <TextView
+        android:id="@+id/codProject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="10dp"
+        android:text="ProjectCode"
+        app:layout_constraintBottom_toTopOf="@+id/nameProject"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="136dp"
+        android:layout_height="22dp"
+        android:text="InitDate"
+        app:layout_constraintBaseline_toBaselineOf="@+id/nameProject"
+        app:layout_constraintEnd_toStartOf="@+id/state"
+        app:layout_constraintStart_toEndOf="@+id/nameProject" />
+
+    <TextView
+        android:id="@+id/state"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="7dp"
+        android:text="EndDate"
+        app:layout_constraintBaseline_toBaselineOf="@+id/userName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nameProject"
+        android:layout_marginRight="7dp" />
+
+</android.support.constraint.ConstraintLayout>
