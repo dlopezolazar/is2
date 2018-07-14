@@ -34,7 +34,7 @@ import pol.una.py.gestprois2_frontend.model.UserModel;
 public class UserActivity extends AppCompatActivity {
 
 
-    private static final String USUARIO = "http://192.168.1.4:8080/gestprois2-backend/api/usuario";
+    private static final String USUARIO = "http://192.168.1.2:8080/gestprois2-backend/api/usuario";
     //private static final String USUARIO = "http://192.168.0.112:8080/gestprois2-backend/api/usuario";
 
     ListView listView;

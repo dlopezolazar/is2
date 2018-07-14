@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import py.una.pol.gestprois2.entities.Sprint;
 import py.una.pol.gestprois2.entities.Story;
+import py.una.pol.gestprois2.entities.Usuario;
 
 /**
  *
@@ -40,6 +41,22 @@ public class StoryFacade extends AbstractFacade<Story>{
             Query query = em.createQuery("SELECT S FROM Story S "
                     + "WHERE S.sprintId = :sprint ");
             query.setParameter("sprint", sprint);
+            
+            List<Story> storyList = query.getResultList();
+            
+            return storyList;
+        } catch (Exception e) {
+            System.err.println(e);
+            return null;
+        }
+    }
+    
+    public List<Story> findAllStoryByUser(Usuario user){
+        
+        try {
+            Query query = em.createQuery("SELECT S FROM Story S "
+                    + "WHERE S.idUsuario = :user ");
+            query.setParameter("user", user);
             
             List<Story> storyList = query.getResultList();
             

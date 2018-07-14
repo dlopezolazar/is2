@@ -26,7 +26,7 @@ import java.io.UnsupportedEncodingException;
 public class UserDetailActivity extends AppCompatActivity {
 
     //private static final String USUARIO = "http://192.168.0.112:8080/gestprois2-backend/api/usuario";
-    private static final String USUARIO = "http://192.168.1.4:8080/gestprois2-backend/api/usuario";
+    private static final String USUARIO = "http://192.168.1.2:8080/gestprois2-backend/api/usuario";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

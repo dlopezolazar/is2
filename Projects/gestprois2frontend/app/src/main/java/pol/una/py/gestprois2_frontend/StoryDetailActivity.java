@@ -26,7 +26,8 @@ import java.util.Date;
 
 public class StoryDetailActivity extends AppCompatActivity {
 
-    private static final String STORY = "http://192.168.1.4:8080/gestprois2-backend/api/story";
+    private static final String STORY = "http://192.168.1.2:8080/gestprois2-backend/api/story";
+    //private static final String STORY = "http://192.168.1.112:8080/gestprois2-backend/api/story";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class StoryDetailActivity extends AppCompatActivity {
                 try {
                     body.put("descripcion", ((TextView) findViewById(R.id.edTaskDescription)).getText().toString());
                     body.put("estado", ((TextView) findViewById(R.id.edState)).getText().toString());
-                    body.put("sprintId", (getIntent().getStringExtra("id")));
+                    body.put("sprintId", (getIntent().getStringExtra("sprintId")));
                     body.put("idUsuario", ((TextView) findViewById(R.id.edUser)).getText().toString());
                     body.put("storyId", idTask != null? idTask.toString():null);
                 } catch (JSONException e) {

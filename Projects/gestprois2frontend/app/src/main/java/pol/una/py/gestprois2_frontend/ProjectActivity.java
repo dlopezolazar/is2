@@ -31,7 +31,7 @@ import pol.una.py.gestprois2_frontend.model.ProjectModel;
 
 public class ProjectActivity extends AppCompatActivity {
 
-    private static final String PROJECT = "http://192.168.1.4:8080/gestprois2-backend/api/proyecto";
+    private static final String PROJECT = "http://192.168.1.2:8080/gestprois2-backend/api/proyecto";
     //private static final String PROJECT = "http://192.168.0.112:8080/gestprois2-backend/api/proyecto";
 
     ListView listView;

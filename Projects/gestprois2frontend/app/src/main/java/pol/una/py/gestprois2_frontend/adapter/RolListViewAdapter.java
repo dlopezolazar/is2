@@ -48,8 +48,8 @@ public class RolListViewAdapter extends BaseAdapter{
             LayoutInflater layoutInflater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.rol_items, null);
 
-            viewItem.IdTextView = (TextView)convertView.findViewById(R.id.id_rol);
-            viewItem.DescripcionTextView = (TextView)convertView.findViewById(R.id.rol_descripcion);
+            viewItem.IdTextView = (TextView)convertView.findViewById(R.id.rolId);
+            viewItem.DescripcionTextView = (TextView)convertView.findViewById(R.id.rolDescription);
 
             convertView.setTag(viewItem);
         }
@@ -57,8 +57,8 @@ public class RolListViewAdapter extends BaseAdapter{
             viewItem = (ViewRolItem) convertView.getTag();
         }
 
-        viewItem.IdTextView.setText(tempList.get(position).getId_rol());
-        viewItem.DescripcionTextView.setText(tempList.get(position).getRol_Descripcion());
+        viewItem.IdTextView.setText(tempList.get(position).getIdRol().toString());
+        viewItem.DescripcionTextView.setText(tempList.get(position).getRolDescription());
 
         return convertView;
     }

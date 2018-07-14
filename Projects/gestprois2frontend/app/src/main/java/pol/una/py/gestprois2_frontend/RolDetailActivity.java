@@ -26,14 +26,14 @@ import java.io.UnsupportedEncodingException;
 public class RolDetailActivity extends AppCompatActivity {
 
     //private static final String ROL = "http://192.168.0.112:8080/gestprois2-backend/api/rol";
-    private static final String ROL = "http://192.168.1.4:8080/gestprois2-backend/api/rol";
+    private static final String ROL = "http://192.168.1.2:8080/gestprois2-backend/api/rol";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rol_detail);
 
-        ((TextView)findViewById(R.id.edDescripcion)).setText(getIntent().getStringExtra("descripcion"));
+        ((TextView)findViewById(R.id.edDescription)).setText(getIntent().getStringExtra("descripcion"));
 
         FloatingActionButton buttonSave = findViewById(R.id.faGuardar);
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +53,7 @@ public class RolDetailActivity extends AppCompatActivity {
 
                 JSONObject body = new JSONObject();
                 try {
-                    body.put("descripcion", ((TextView) findViewById(R.id.edDescripcion)).getText().toString());
+                    body.put("descripcion", ((TextView) findViewById(R.id.edDescription)).getText().toString());
                     body.put("idRol", rolId != null? rolId.toString():null);
                 } catch (JSONException e) {
                     e.printStackTrace();

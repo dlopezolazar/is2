@@ -33,7 +33,7 @@ import pol.una.py.gestprois2_frontend.model.RolModel;
 
 public class RolActivity extends AppCompatActivity {
 
-    private static final String ROL = "http://192.168.1.4:8080/gestprois2-backend/api/rol";
+    private static final String ROL = "http://192.168.1.2:8080/gestprois2-backend/api/rol";
     //private static final String ROL = "http://192.168.0.112:8080/gestprois2-backend/api/rol";
 
     ListView listView;
@@ -64,7 +64,7 @@ public class RolActivity extends AppCompatActivity {
         rQueue.add(request);
 
         //Al dar click sobre el button + se desplega la vista para crear nuevo rol
-        FloatingActionButton buttonNew = findViewById(R.id.butonNew);
+        FloatingActionButton buttonNew = findViewById(R.id.butonNewRol);
         buttonNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,8 +120,8 @@ public class RolActivity extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             rol = new RolModel();
                             jsonObject = jsonArray.getJSONObject(i);
-                            rol.setId_rol(jsonObject.getInt("id_rol"));
-                            rol.setRol_descripcion(jsonObject.getString("descripcion_rol"));
+                            rol.setIdRol(jsonObject.getInt("idRol"));
+                            rol.setRolDescription(jsonObject.getString("rolDescripcion"));
                             customList.add(rol);
                         }
                     } catch (JSONException e) {
@@ -148,8 +148,8 @@ public class RolActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     RolModel u = (RolModel) adapterView.getItemAtPosition(i);
                     Intent intent = new Intent(RolActivity.this, RolDetailActivity.class);
-                    intent.putExtra("descripcion", u.getRol_Descripcion());
-                    intent.putExtra("id", u.getId_rol().toString());
+                    intent.putExtra("descripcion", u.getRolDescription());
+                    intent.putExtra("id", u.getIdRol().toString());
                     startActivity(intent);
                 }
             });
@@ -162,7 +162,7 @@ public class RolActivity extends AppCompatActivity {
                 @Override
                 public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
                     RolModel um = (RolModel) parent.getItemAtPosition(position);
-                    final String deleteEndpoint = ROL+"/"+um.getId_rol();
+                    final String deleteEndpoint = ROL+"/"+um.getIdRol();
                     AlertDialog.Builder myQuittingDialogBox =new AlertDialog.Builder(RolActivity.this)
                             //set message, title, and icon
                             .setTitle("Delete")
